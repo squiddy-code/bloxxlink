@@ -17,21 +17,21 @@ int getGridCellSize(int[] availableGridSize, int[] gridDimensions) {
     int availableGridWidth = availableGridSize[0];
     int availableGridHeight = availableGridSize[1];
 
-    int numberOfColumns = gridDimensions[0];
-    int numberOfRows = gridDimensions[1];
+    int columnsAmount = gridDimensions[0];
+    int rowsAmount = gridDimensions[1];
 
-    int maxCellWidth = availableGridWidth / numberOfColumns;
-    int maxCellHeight = availableGridHeight / numberOfRows;
+    int maxCellWidth = availableGridWidth / columnsAmount;
+    int maxCellHeight = availableGridHeight / rowsAmount;
 
     return min(maxCellWidth, maxCellHeight);
 }
 
 int[] getGridSize(int gridCellSize, int[] gridDimensions) {
-    int numberOfColumns = gridDimensions[0];
-    int numberOfRows = gridDimensions[1];
+    int columnsAmount = gridDimensions[0];
+    int rowsAmount = gridDimensions[1];
 
-    int width = gridCellSize * numberOfColumns;
-    int height = gridCellSize * numberOfRows;
+    int width = gridCellSize * columnsAmount;
+    int height = gridCellSize * rowsAmount;
 
     return new int[] {
         width,
