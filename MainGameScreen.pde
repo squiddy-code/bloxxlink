@@ -3,28 +3,28 @@ int[] getMainGameScreenPosition(
     int[] gridSize,
     int scoreCounterHeight
 ) {
-    int marginInline = margin[0];
-    int marginBlock = margin[1];
+    int marginX = margin[0];
+    int marginY = margin[1];
 
     int gridWidth = gridSize[0];
     int gridHeight = gridSize[1];
 
-    int leftoverInlineSpace = width - marginInline - gridWidth - marginInline;
-    int marginInlineToCenter = leftoverInlineSpace / 2;
+    int leftoverHorizontalSpace = width - marginX - gridWidth - marginX;
+    int marginXToCenter = leftoverHorizontalSpace / 2;
 
-    int leftoverBlockSpace = 
+    int leftoverVerticalSpace = 
         height 
-        - marginBlock 
+        - marginY 
         - scoreCounterHeight 
         - gridHeight 
-        - marginBlock;
-    int marginBlockToCenter = leftoverBlockSpace / 2;
+        - marginY;
+    int marginYToCenter = leftoverVerticalSpace / 2;
 
-    int x1 = marginInline + marginInlineToCenter;
-    int y1 = marginBlock + marginBlockToCenter;
+    int x1 = marginX + marginXToCenter;
+    int y1 = marginY + marginYToCenter;
 
-    int x2 = width - marginInline - marginInlineToCenter;
-    int y2 = height - marginBlock - marginBlockToCenter;
+    int x2 = width - marginX - marginXToCenter;
+    int y2 = height - marginY - marginYToCenter;
 
     return new int[] {
         x1,
@@ -35,11 +35,11 @@ int[] getMainGameScreenPosition(
 }
 
 int[] getMainGameScreenSize(int[] margin) {
-    int marginInline = margin[0];
-    int marginBlock = margin[1];
+    int marginX = margin[0];
+    int marginY = margin[1];
 
-    int mainGameScreenWidth = width - marginInline * 2;
-    int mainGameScreenHeight = height - marginBlock * 2;
+    int mainGameScreenWidth = width - marginX * 2;
+    int mainGameScreenHeight = height - marginY * 2;
 
     return new int[] {
         mainGameScreenWidth,

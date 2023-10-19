@@ -15,8 +15,8 @@ void setup() {
 
 void draw() {
     int[] margin = {
-        60, // inline
-        60  // block
+        60, // x
+        60  // y
     };
 
     int[] gridDimensions = {
