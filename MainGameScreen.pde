@@ -47,7 +47,7 @@ int[] getMainGameScreenSize(int[] margin) {
     };
 }
 
-void drawMainGameScreen(int[] margin, int[] gridDimensions) {
+void drawMainGameScreen(int[] margin, int[] gridDimensions, int[][][] gridContent) {
     int[] mainGameScreenSize = getMainGameScreenSize(margin);
     int cellSize = getGridCellSize(
         mainGameScreenSize,
@@ -73,5 +73,5 @@ void drawMainGameScreen(int[] margin, int[] gridDimensions) {
     );
 
     position = getGridPosition(position, scoreCounterHeight);
-    drawGrid(position, gridDimensions);
+    drawGrid(position, gridDimensions, gridContent);
 }

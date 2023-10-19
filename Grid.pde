@@ -39,11 +39,12 @@ int[] getGridSize(int gridCellSize, int[] gridDimensions) {
     };
 }
 
-void drawGrid(int[] position, int[] gridDimensions) {
+void drawGrid(int[] position, int[] gridDimensions, int[][][] gridContent) {
     fill(WHITE);
 
     int x1 = position[0];
     int y1 = position[1];
+    
     int x2 = position[2];
     int y2 = position[3];
 
