@@ -29,7 +29,7 @@ void draw() {
             {1, 1}, {2, 2} // player 1 at (1, 1) and player 2 at (2, 2)
         },
         {
-            {3, 3}, {4, 4} // obstakels at (3, 3) and (4, 4)
+            {3, 3}, {4, 4} // obstacles at (3, 3) and (4, 4)
         },
         {
             {5, 5}, {6, 6} // player 1 blocks at (5, 5) and (6, 6)
