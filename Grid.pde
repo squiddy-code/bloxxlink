@@ -58,7 +58,8 @@ void drawEmptyGrid(int[] coordinates, int[] gridDimensions, int cellSize) {
 int[] cellPositionToCoordinates(
     int[] gridCoordinates,
     int[] cellPosition,
-    int cellSize
+    int cellSize,
+    int padding
 ) {
     int gridX = gridCoordinates[0];
     int gridY = gridCoordinates[1];
@@ -66,8 +67,8 @@ int[] cellPositionToCoordinates(
     int column = cellPosition[0];
     int row = cellPosition[1];
 
-    int x = gridX + column * cellSize;
-    int y = gridY + row * cellSize;
+    int x = gridX + column * cellSize + padding;
+    int y = gridY + row * cellSize + padding;
 
     return new int[] {
         x,
@@ -78,7 +79,8 @@ int[] cellPositionToCoordinates(
 int[][] cellPositionsToCoordinates(
     int[] gridCoordinates,
     int[][] cellPositions,
-    int cellSize
+    int cellSize,
+    int padding
 ) {
     int[][] cellsCoordinates = {};
 
@@ -87,7 +89,8 @@ int[][] cellPositionsToCoordinates(
         int[] cellCoordinates = cellPositionToCoordinates(
             gridCoordinates,
             cellPosition,
-            cellSize
+            cellSize,
+            padding
         );
         
         // type cast is necessary so it doesn't get converted to Object
@@ -115,11 +118,15 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
     drawEmptyGrid(coordinates, gridDimensions, cellSize);
 
     int[][] playersPositions = gridContent[0];
+    int playerPadding = 5;
+    
     int[][] playersCoordinates = cellPositionsToCoordinates(
         coordinates,
         playersPositions,
-        cellSize
+        cellSize,
+        playerPadding
     );
 
-    drawPlayers(playersCoordinates, cellSize);
+    int playerSize = cellSize - 2 * playerPadding;
+    drawPlayers(playersCoordinates, playerSize);
 }
