@@ -76,16 +76,16 @@ int[] cellPositionToCoordinates(
     };
 }
 
-int[][] cellPositionsToCoordinates(
+int[][] cellsPositionsToCoordinates(
     int[] gridCoordinates,
-    int[][] cellPositions,
+    int[][] cellsPositions,
     int cellSize,
     int padding
 ) {
     int[][] cellsCoordinates = {};
 
-    for (int cellIndex = 0; cellIndex < cellPositions.length; cellIndex++) {
-        int[] cellPosition = cellPositions[cellIndex];
+    for (int cellIndex = 0; cellIndex < cellsPositions.length; cellIndex++) {
+        int[] cellPosition = cellsPositions[cellIndex];
         int[] cellCoordinates = cellPositionToCoordinates(
             gridCoordinates,
             cellPosition,
