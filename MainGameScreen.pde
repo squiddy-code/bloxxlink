@@ -1,4 +1,4 @@
-int[] getMainGameScreenPosition(
+int[] getMainGameScreenCoordinates(
     int[] margin,
     int[] gridSize,
     int scoreCounterHeight
@@ -60,18 +60,18 @@ void drawMainGameScreen(int[] margin, int[] gridDimensions, int[][][] gridConten
     int scoreCounterMarginBottom = 20;
     int scoreCounterHeight = scoreCounterTextSize + scoreCounterMarginBottom;
 
-    int[] position = getMainGameScreenPosition(
+    int[] coordinates = getMainGameScreenCoordinates(
         margin,
         gridSize,
         scoreCounterHeight
     );
 
     drawScoreCounter(
-        position,
+        coordinates,
         scoreCounterTextSize,
         new int[] {1, 2}
     );
 
-    position = getGridPosition(position, scoreCounterHeight);
-    drawGrid(position, gridDimensions, gridContent);
+    coordinates = getGridCoordinates(coordinates, scoreCounterHeight);
+    drawGrid(coordinates, gridDimensions, gridContent);
 }

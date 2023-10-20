@@ -1,10 +1,10 @@
-void drawScoreCounter(int[] position, int textSize, int[] scores) {
+void drawScoreCounter(int[] coordinates, int textSize, int[] scores) {
     fill(BLACK);
     textSize(textSize);
 
-    int x1 = position[0];
-    int y1 = position[1];
-    int x2 = position[2];
+    int x1 = coordinates[0];
+    int y1 = coordinates[1];
+    int x2 = coordinates[2];
 
     int width = x2 - x1;
 

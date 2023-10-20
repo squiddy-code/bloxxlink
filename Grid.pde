@@ -1,9 +1,9 @@
-int[] getGridPosition(int[] position, int scoreCounterHeight) {
-    int x1 = position[0];
-    int y1 = position[1] + scoreCounterHeight;
+int[] getGridCoordinates(int[] coordinates, int scoreCounterHeight) {
+    int x1 = coordinates[0];
+    int y1 = coordinates[1] + scoreCounterHeight;
 
-    int x2 = position[2];
-    int y2 = position[3];
+    int x2 = coordinates[2];
+    int y2 = coordinates[3];
 
     return new int[] {
         x1,
@@ -39,14 +39,71 @@ int[] getGridSize(int gridCellSize, int[] gridDimensions) {
     };
 }
 
-void drawGrid(int[] position, int[] gridDimensions, int[][][] gridContent) {
+void drawEmptyGrid(int[] coordinates, int[] gridDimensions, int cellSize) {
+    int x = coordinates[0];
+    int y = coordinates[1];
+
+    int columnAmount = gridDimensions[0];
+    int rowAmount = gridDimensions[1];
+
+    for (int rowIndex = 0; rowIndex < rowAmount; rowIndex++) {
+        for (int columnIndex = 0; columnIndex < columnAmount; columnIndex++) {
+            int cellX = x + columnIndex * cellSize;
+            int cellY = y + rowIndex * cellSize;
+            rect(cellX, cellY, cellSize, cellSize);
+        }
+    }
+}
+
+int[] cellPositionToCoordinates(
+    int[] gridCoordinates,
+    int[] cellPosition,
+    int cellSize
+) {
+    int gridX = gridCoordinates[0];
+    int gridY = gridCoordinates[1];
+
+    int column = cellPosition[0];
+    int row = cellPosition[1];
+
+    int x = gridX + column * cellSize;
+    int y = gridY + row * cellSize;
+
+    return new int[] {
+        x,
+        y
+    };
+}
+
+int[][] cellPositionsToCoordinates(
+    int[] gridCoordinates,
+    int[][] cellPositions,
+    int cellSize
+) {
+    int[][] cellsCoordinates = {};
+
+    for (int cellIndex = 0; cellIndex < cellPositions.length; cellIndex++) {
+        int[] cellPosition = cellPositions[cellIndex];
+        int[] cellCoordinates = cellPositionToCoordinates(
+            gridCoordinates,
+            cellPosition,
+            cellSize
+        );
+        // type cast is necessary so it doesn't get converted to Object
+        cellsCoordinates = (int[][]) append(cellsCoordinates, cellCoordinates);
+    }
+
+    return cellsCoordinates;
+}
+
+void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
     fill(WHITE);
 
-    int x1 = position[0];
-    int y1 = position[1];
+    int x1 = coordinates[0];
+    int y1 = coordinates[1];
     
-    int x2 = position[2];
-    int y2 = position[3];
+    int x2 = coordinates[2];
+    int y2 = coordinates[3];
 
     int availableWidth = x2 - x1;
     int availableHeight = y2 - y1;
@@ -54,14 +111,14 @@ void drawGrid(int[] position, int[] gridDimensions, int[][][] gridContent) {
     int[] availableGridSize = {availableWidth, availableHeight};
     int cellSize = getGridCellSize(availableGridSize, gridDimensions);
 
-    int numberOfColumns = gridDimensions[0];
-    int numberOfRows = gridDimensions[1];
+    drawEmptyGrid(coordinates, gridDimensions, cellSize);
 
-    for (int rowIndex = 0; rowIndex < numberOfRows; rowIndex++) {
-        for (int columnIndex = 0; columnIndex < numberOfColumns; columnIndex++) {
-            int cellX = x1 + columnIndex * cellSize;
-            int cellY = y1 + rowIndex * cellSize;
-            rect(cellX, cellY, cellSize, cellSize);
-        }
-    }
+    int[][] playersPositions = gridContent[0];
+    int[][] playersCoordinates = cellPositionsToCoordinates(
+        coordinates,
+        playersPositions,
+        cellSize
+    );
+
+    drawPlayers(playersCoordinates, cellSize);
 }
