@@ -110,14 +110,11 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
 
     int[][] playersPositions = gridContent[0];
     int playerPadding = 5;
-    
-    int[][] playersCoordinates = cellPositionsToCoordinates(
+
+    drawPlayersByPositions(
         coordinates,
         playersPositions,
         cellSize,
         playerPadding
     );
-
-    int playerSize = cellSize - 2 * playerPadding;
-    drawPlayers(playersCoordinates, playerSize);
 }

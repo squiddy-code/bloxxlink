@@ -48,9 +48,26 @@ void drawPlayer(int[] coordinates, int size) {
     drawPlayerMouth(coordinates, size);
 }
 
-void drawPlayers(int[][] coordinates, int size) {
+void drawPlayersByCoordinates(int[][] coordinates, int size) {
     for (int playerIndex = 0; playerIndex < coordinates.length; playerIndex++) {
         int[] playerCoordinates = coordinates[playerIndex];
         drawPlayer(playerCoordinates, size);
     }
+}
+
+void drawPlayersByPositions(
+    int[] gridCoordinates,
+    int[][] positions,
+    int cellSize,
+    int padding
+) {
+    int[][] playersCoordinates = cellsPositionsToCoordinates(
+        gridCoordinates,
+        positions,
+        cellSize,
+        padding
+    );
+
+    int playerSize = cellSize - 2 * padding;
+    drawPlayersByCoordinates(playersCoordinates, playerSize);
 }
