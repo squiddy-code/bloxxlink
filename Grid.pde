@@ -117,4 +117,14 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
         cellSize,
         playerPadding
     );
+
+    int[][] obstaclesPositions = gridContent[1];
+    int obstaclesPadding = 0;
+
+    drawObstaclesByPositions(
+        coordinates,
+        obstaclesPositions,
+        cellSize,
+        obstaclesPadding
+    );
 }
