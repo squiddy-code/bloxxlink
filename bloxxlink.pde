@@ -9,7 +9,7 @@ void setup() {
 
     background(WHITE);
 
-    // noLoop() must be on the last line of setup()
+    // noLoop() must be the last line of setup()
     noLoop();
 }
 
