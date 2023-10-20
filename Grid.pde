@@ -103,16 +103,7 @@ int[][] cellPositionsToCoordinates(
 void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
     fill(WHITE);
 
-    int x1 = coordinates[0];
-    int y1 = coordinates[1];
-    
-    int x2 = coordinates[2];
-    int y2 = coordinates[3];
-
-    int availableWidth = x2 - x1;
-    int availableHeight = y2 - y1;
-
-    int[] availableGridSize = {availableWidth, availableHeight};
+    int[] availableGridSize = getAvailableSize(coordinates);
     int cellSize = getGridCellSize(availableGridSize, gridDimensions);
 
     drawEmptyGrid(coordinates, gridDimensions, cellSize);
