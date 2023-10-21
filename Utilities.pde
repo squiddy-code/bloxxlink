@@ -14,6 +14,6 @@ int[] getAvailableSize(int[] coordinates) {
     };
 }
 
-int addPaddingToSize(int size, int padding) {
-    return size - 2 * padding;
+int subtractMarginFromSize(int size, int margin) {
+    return size - 2 * margin;
 }

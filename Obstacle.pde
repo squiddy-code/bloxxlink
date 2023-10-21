@@ -22,12 +22,12 @@ void drawObstaclesByPositions(
     int[][] positions,
     int cellSize
 ) {
-    int padding = 0;
+    int margin = 0;
     int[][] obstaclesCoordinates = cellsPositionsToCoordinates(
         gridCoordinates,
         positions,
         cellSize,
-        padding
+        margin
     );
 
     drawObstaclesByCoordinates(obstaclesCoordinates, cellSize);

@@ -59,7 +59,7 @@ int[] cellPositionToCoordinates(
     int[] gridCoordinates,
     int[] cellPosition,
     int cellSize,
-    int padding
+    int margin
 ) {
     int gridX = gridCoordinates[0];
     int gridY = gridCoordinates[1];
@@ -67,8 +67,8 @@ int[] cellPositionToCoordinates(
     int column = cellPosition[0];
     int row = cellPosition[1];
 
-    int x = gridX + column * cellSize + padding;
-    int y = gridY + row * cellSize + padding;
+    int x = gridX + column * cellSize + margin;
+    int y = gridY + row * cellSize + margin;
 
     return new int[] {
         x,
@@ -80,7 +80,7 @@ int[][] cellsPositionsToCoordinates(
     int[] gridCoordinates,
     int[][] cellsPositions,
     int cellSize,
-    int padding
+    int margin
 ) {
     int[][] cellsCoordinates = {};
 
@@ -90,7 +90,7 @@ int[][] cellsPositionsToCoordinates(
             gridCoordinates,
             cellPosition,
             cellSize,
-            padding
+            margin
         );
         
         // type cast is necessary so it doesn't get converted to Object
