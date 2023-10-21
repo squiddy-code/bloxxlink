@@ -1,9 +1,9 @@
-int[] getGridCoordinates(int[] coordinates, int scoreCounterHeight) {
-    int x1 = coordinates[0];
-    int y1 = coordinates[1] + scoreCounterHeight;
+int[] getGridCoordinates(int[] previousCoordinates, int scoreCounterHeight) {
+    int x1 = previousCoordinates[0];
+    int y1 = previousCoordinates[1] + scoreCounterHeight;
 
-    int x2 = coordinates[2];
-    int y2 = coordinates[3];
+    int x2 = previousCoordinates[2];
+    int y2 = previousCoordinates[3];
 
     return new int[] {
         x1,
