@@ -68,6 +68,6 @@ void drawPlayersByPositions(
         margin
     );
 
-    int playerSize = subtractMarginFromSize(cellSize, margin);
+    int playerSize = subtractMarginFromLength(cellSize, margin);
     drawPlayersByCoordinates(playersCoordinates, playerSize);
 }

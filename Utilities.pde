@@ -14,6 +14,19 @@ int[] getAvailableSize(int[] coordinates) {
     };
 }
 
-int subtractMarginFromSize(int size, int margin) {
-    return size - 2 * margin;
+int subtractMarginFromLength(int length, int margin) {
+    return length - 2 * margin;
+}
+
+int[] subtractMarginFromSize(int[] size, int[] margin) {
+    int width = size[0];
+    int height = size[1];
+
+    int marginX = margin[0];
+    int marginY = margin[1];
+
+    return new int[] {
+        subtractMarginFromLength(width, marginX),
+        subtractMarginFromLength(height, marginY)
+    };
 }

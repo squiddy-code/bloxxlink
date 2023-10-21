@@ -34,26 +34,15 @@ int[] getMainGameScreenCoordinates(
     };
 }
 
-int[] getMainGameScreenSize(int[] margin) {
-    int marginX = margin[0];
-    int marginY = margin[1];
-
-    int mainGameScreenWidth = width - marginX * 2;
-    int mainGameScreenHeight = height - marginY * 2;
-
-    return new int[] {
-        mainGameScreenWidth,
-        mainGameScreenHeight
-    };
-}
-
 void drawMainGameScreen(int[] margin, int[] gridDimensions, int[][][] gridContent) {
-    int[] mainGameScreenSize = getMainGameScreenSize(margin);
+    int[] mainGameScreenSize = {width, height};
+    mainGameScreenSize = subtractMarginFromSize(mainGameScreenSize, margin);
+
     int cellSize = getGridCellSize(
         mainGameScreenSize,
         gridDimensions
     );
-    
+
     int[] gridSize = getGridSize(cellSize, gridDimensions);
 
     int scoreCounterTextSize = 30;
