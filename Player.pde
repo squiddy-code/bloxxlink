@@ -68,6 +68,6 @@ void drawPlayersByPositions(
         padding
     );
 
-    int playerSize = cellSize - 2 * padding;
+    int playerSize = addPaddingToSize(cellSize, padding);
     drawPlayersByCoordinates(playersCoordinates, playerSize);
 }

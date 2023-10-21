@@ -13,3 +13,7 @@ int[] getAvailableSize(int[] coordinates) {
         availableHeight
     };
 }
+
+int addPaddingToSize(int size, int padding) {
+    return size - 2 * padding;
+}

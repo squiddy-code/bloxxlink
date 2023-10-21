@@ -26,6 +26,6 @@ void drawObstaclesByPositions(
         padding
     );
 
-    int obstacleSize = cellSize - 2 * padding;
+    int obstacleSize = addPaddingToSize(cellSize, padding);
     drawObstaclesByCoordinates(obstaclesCoordinates, obstacleSize);
 }
