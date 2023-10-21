@@ -34,12 +34,16 @@ int[] getMainGameScreenCoordinates(
     };
 }
 
-void drawMainGameScreen(int[] margin, int[] gridDimensions, int[][][] gridContent) {
-    int[] mainGameScreenSize = {width, height};
-    mainGameScreenSize = subtractMarginFromSize(mainGameScreenSize, margin);
+void drawMainGameScreen(int[] gridDimensions, int[][][] gridContent) {
+    int[] size = {width, height};
+    int[] margin = {
+        60, // x
+        60  // y
+    };
+    size = subtractMarginFromSize(size, margin);
 
     int cellSize = getGridCellSize(
-        mainGameScreenSize,
+        size,
         gridDimensions
     );
 
