@@ -14,7 +14,7 @@ void setup() {
 }
 
 void draw() {
-    int[] margin = {
+    int[] mainGameScreenMargin = {
         60, // x
         60  // y
     };
@@ -39,7 +39,7 @@ void draw() {
         }
     };
 
-    drawMainGameScreen(margin, gridDimensions, gridContent);
+    drawMainGameScreen(mainGameScreenMargin, gridDimensions, gridContent);
 }
 
 void windowResized() {
