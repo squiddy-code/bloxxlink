@@ -109,22 +109,16 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
     drawEmptyGrid(coordinates, gridDimensions, cellSize);
 
     int[][] playersPositions = gridContent[0];
-    int playerPadding = 5;
-
     drawPlayersByPositions(
         coordinates,
         playersPositions,
-        cellSize,
-        playerPadding
+        cellSize
     );
 
     int[][] obstaclesPositions = gridContent[1];
-    int obstaclesPadding = 0;
-
     drawObstaclesByPositions(
         coordinates,
         obstaclesPositions,
-        cellSize,
-        obstaclesPadding
+        cellSize
     );
 }

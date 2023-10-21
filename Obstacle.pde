@@ -20,9 +20,9 @@ void drawObstaclesByCoordinates(int[][] coordinates, int size) {
 void drawObstaclesByPositions(
     int[] gridCoordinates,
     int[][] positions,
-    int cellSize,
-    int padding
+    int cellSize
 ) {
+    int padding = 0;
     int[][] obstaclesCoordinates = cellsPositionsToCoordinates(
         gridCoordinates,
         positions,
@@ -30,6 +30,5 @@ void drawObstaclesByPositions(
         padding
     );
 
-    int obstacleSize = addPaddingToSize(cellSize, padding);
-    drawObstaclesByCoordinates(obstaclesCoordinates, obstacleSize);
+    drawObstaclesByCoordinates(obstaclesCoordinates, cellSize);
 }

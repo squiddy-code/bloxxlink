@@ -58,9 +58,9 @@ void drawPlayersByCoordinates(int[][] coordinates, int size) {
 void drawPlayersByPositions(
     int[] gridCoordinates,
     int[][] positions,
-    int cellSize,
-    int padding
+    int cellSize
 ) {
+    int padding = 5;
     int[][] playersCoordinates = cellsPositionsToCoordinates(
         gridCoordinates,
         positions,
