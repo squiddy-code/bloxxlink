@@ -7,7 +7,11 @@ void drawObstacle(int[] coordinates, int size) {
 }
 
 void drawObstaclesByCoordinates(int[][] coordinates, int size) {
-    for (int obstacleIndex = 0; obstacleIndex < coordinates.length; obstacleIndex++) {
+    for (
+        int obstacleIndex = 0;
+        obstacleIndex < coordinates.length;
+        obstacleIndex++
+    ) {
         int[] obstacleCoordinates = coordinates[obstacleIndex];
         drawObstacle(obstacleCoordinates, size);
     }
