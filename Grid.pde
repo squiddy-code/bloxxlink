@@ -13,6 +13,16 @@ int[] getGridCoordinates(int[] previousCoordinates, int scoreCounterHeight) {
     };
 }
 
+int[] getAvailableGridSize(int[] mainGameScreenSize, int scoreCounterHeight) {
+    int mainGameScreenWidth = mainGameScreenSize[0];
+    int mainGameScreenHeight = mainGameScreenSize[1];
+
+    int availableGridWidth = mainGameScreenWidth;
+    int availableGridHeight = mainGameScreenHeight - scoreCounterHeight;
+
+    return new int[] {availableGridWidth, availableGridHeight};
+}
+
 int getGridCellSize(int[] availableGridSize, int[] gridDimensions) {
     int availableGridWidth = availableGridSize[0];
     int availableGridHeight = availableGridSize[1];

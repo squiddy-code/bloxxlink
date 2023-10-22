@@ -40,18 +40,20 @@ void drawMainGameScreen(int[] gridDimensions, int[][][] gridContent) {
         60, // x
         60  // y
     };
+
     size = subtractMarginFromSize(size, margin);
-
-    int cellSize = getGridCellSize(
-        size,
-        gridDimensions
-    );
-
-    int[] gridSize = getGridSize(cellSize, gridDimensions);
 
     int scoreCounterTextSize = 30;
     int scoreCounterMarginBottom = 20;
     int scoreCounterHeight = scoreCounterTextSize + scoreCounterMarginBottom;
+
+    int[] availableGridSize = getAvailableGridSize(size, scoreCounterHeight);
+    int cellSize = getGridCellSize(
+        availableGridSize,
+        gridDimensions
+    );
+
+    int[] gridSize = getGridSize(cellSize, gridDimensions);
 
     int[] coordinates = getMainGameScreenCoordinates(
         margin,
