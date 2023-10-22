@@ -29,7 +29,7 @@ void drawPlayerMouth(int[] coordinates, int size) {
     int x = coordinates[0];
     int y = coordinates[1];
 
-    int strokeWeight = round(size * 0.01);
+    int strokeWeight = round(size * 0.02);
     strokeWeight(strokeWeight);
 
     int mouthX = x + size / 2;
