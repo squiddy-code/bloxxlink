@@ -8,10 +8,7 @@ int[] getAvailableSize(int[] coordinates) {
     int availableWidth = x2 - x1;
     int availableHeight = y2 - y1;
 
-    return new int[] {
-        availableWidth,
-        availableHeight
-    };
+    return new int[] {availableWidth, availableHeight};
 }
 
 int subtractMarginFromLength(int length, int margin) {

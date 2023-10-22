@@ -5,12 +5,7 @@ int[] getGridCoordinates(int[] previousCoordinates, int scoreCounterHeight) {
     int x2 = previousCoordinates[2];
     int y2 = previousCoordinates[3];
 
-    return new int[] {
-        x1,
-        y1,
-        x2,
-        y2
-    };
+    return new int[] {x1, y1, x2, y2};
 }
 
 int[] getAvailableGridSize(int[] mainGameScreenSize, int scoreCounterHeight) {
@@ -43,10 +38,7 @@ int[] getGridSize(int gridCellSize, int[] gridDimensions) {
     int width = gridCellSize * columnAmount;
     int height = gridCellSize * rowAmount;
 
-    return new int[] {
-        width,
-        height
-    };
+    return new int[] {width, height};
 }
 
 void drawEmptyGrid(int[] coordinates, int[] gridDimensions, int cellSize) {
@@ -80,10 +72,7 @@ int[] cellPositionToCoordinates(
     int x = gridX + column * cellSize + margin;
     int y = gridY + row * cellSize + margin;
 
-    return new int[] {
-        x,
-        y
-    };
+    return new int[] {x, y};
 }
 
 int[][] cellsPositionsToCoordinates(

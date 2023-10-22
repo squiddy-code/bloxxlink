@@ -26,12 +26,7 @@ int[] getMainGameScreenCoordinates(
     int x2 = width - marginX - marginXToCenter;
     int y2 = height - marginY - marginYToCenter;
 
-    return new int[] {
-        x1,
-        y1,
-        x2,
-        y2
-    };
+    return new int[] {x1, y1, x2, y2};
 }
 
 void drawMainGameScreen(int[] gridDimensions, int[][][] gridContent) {
