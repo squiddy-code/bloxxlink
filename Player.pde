@@ -29,9 +29,6 @@ void drawPlayerMouth(int[] coordinates, int size) {
     int x = coordinates[0];
     int y = coordinates[1];
 
-    int strokeWeight = round(size * 0.02);
-    strokeWeight(strokeWeight);
-
     int mouthX = x + size / 2;
     int mouthY = y + round(size * 0.45);
 
@@ -43,9 +40,14 @@ void drawPlayerMouth(int[] coordinates, int size) {
 }
 
 void drawPlayer(int[] coordinates, int size) {
+    int strokeWeight = round(size * 0.02);
+    strokeWeight(strokeWeight);
+
     drawPlayerHead(coordinates, size);
     drawPlayerEyes(coordinates, size);
     drawPlayerMouth(coordinates, size);
+
+    strokeWeight(1);
 }
 
 void drawPlayersByCoordinates(int[][] coordinates, int size) {
