@@ -120,4 +120,22 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
         obstaclesPositions,
         cellSize
     );
+
+    int[][] player1BlocksPositions = gridContent[2];
+    int player1Color = RED;
+    drawBlocksByPositions(
+        coordinates,
+        player1BlocksPositions,
+        cellSize,
+        player1Color
+    );
+
+    int[][] player2BlocksPositions = gridContent[3];
+    int player2Color = BLUE;
+    drawBlocksByPositions(
+        coordinates,
+        player2BlocksPositions,
+        cellSize,
+        player2Color
+    );
 }
