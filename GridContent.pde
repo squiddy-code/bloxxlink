@@ -75,7 +75,7 @@ int[][] getRandomGridPositionsWithoutDuplicates(
     return positions;
 }
 
-int[][][] addPositionsToGridContent(
+int[][][] addRandomPositionsToGridContent(
     int amount,
     int[] gridDimensions,
     int[][][] gridContent
@@ -97,7 +97,7 @@ int[][][] addBlocksPositionsToGridContent(
     int[][][] gridContent
 ) {
     for (int playerCount = 0; playerCount < playerAmount; playerCount++) {
-        gridContent = addPositionsToGridContent(
+        gridContent = addRandomPositionsToGridContent(
             blockAmount,
             gridDimensions,
             gridContent
@@ -114,13 +114,13 @@ int[][][] getRandomGridContent(int[] gridDimensions, int[] amounts) {
 
     int[][][] gridContent = {};
 
-    gridContent = addPositionsToGridContent(
+    gridContent = addRandomPositionsToGridContent(
         playerAmount,
         gridDimensions,
         gridContent
     );
 
-    gridContent = addPositionsToGridContent(
+    gridContent = addRandomPositionsToGridContent(
         obstacleAmount,
         gridDimensions,
         gridContent
