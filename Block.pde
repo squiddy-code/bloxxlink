@@ -14,15 +14,15 @@ void drawBlocksByCoordinates(int[][] coordinates, int size, int _color) {
 }
 
 void drawBlocksByPositions(
-    int[] gridCoordinates,
     int[][] positions,
+    int[] gridCoordinates,
     int cellSize,
     int _color
 ) {
     int margin = 0;
     int[][] blocksCoordinates = cellsPositionsToCoordinates(
-        gridCoordinates,
         positions,
+        gridCoordinates,
         cellSize,
         margin
     );

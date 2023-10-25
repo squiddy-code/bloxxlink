@@ -18,14 +18,14 @@ void drawObstaclesByCoordinates(int[][] coordinates, int size) {
 }
 
 void drawObstaclesByPositions(
-    int[] gridCoordinates,
     int[][] positions,
+    int[] gridCoordinates,
     int cellSize
 ) {
     int margin = 0;
     int[][] obstaclesCoordinates = cellsPositionsToCoordinates(
-        gridCoordinates,
         positions,
+        gridCoordinates,
         cellSize,
         margin
     );

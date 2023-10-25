@@ -59,14 +59,14 @@ void drawPlayersByCoordinates(int[][] coordinates, int size) {
 }
 
 void drawPlayersByPositions(
-    int[] gridCoordinates,
     int[][] positions,
+    int[] gridCoordinates,
     int cellSize
 ) {
     int margin = 5;
     int[][] playersCoordinates = cellsPositionsToCoordinates(
-        gridCoordinates,
         positions,
+        gridCoordinates,
         cellSize,
         margin
     );

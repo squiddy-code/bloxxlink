@@ -58,8 +58,8 @@ void drawEmptyGrid(int[] coordinates, int[] gridDimensions, int cellSize) {
 }
 
 int[] cellPositionToCoordinates(
-    int[] gridCoordinates,
     int[] cellPosition,
+    int[] gridCoordinates,
     int cellSize,
     int margin
 ) {
@@ -76,8 +76,8 @@ int[] cellPositionToCoordinates(
 }
 
 int[][] cellsPositionsToCoordinates(
-    int[] gridCoordinates,
     int[][] cellsPositions,
+    int[] gridCoordinates,
     int cellSize,
     int margin
 ) {
@@ -86,8 +86,8 @@ int[][] cellsPositionsToCoordinates(
     for (int cellIndex = 0; cellIndex < cellsPositions.length; cellIndex++) {
         int[] cellPosition = cellsPositions[cellIndex];
         int[] cellCoordinates = cellPositionToCoordinates(
-            gridCoordinates,
             cellPosition,
+            gridCoordinates,
             cellSize,
             margin
         );
@@ -109,15 +109,15 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
 
     int[][] obstaclesPositions = gridContent[0];
     drawObstaclesByPositions(
-        coordinates,
         obstaclesPositions,
+        coordinates,
         cellSize
     );
 
     int[][] playersPositions = gridContent[2];
     drawPlayersByPositions(
-        coordinates,
         playersPositions,
+        coordinates,
         cellSize
     );
 
@@ -126,8 +126,8 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
     int[][] player1BlocksPositions = gridContent[3];
     int player1Color = RED;
     drawBlocksByPositions(
-        coordinates,
         player1BlocksPositions,
+        coordinates,
         cellSize,
         player1Color
     );
@@ -135,8 +135,8 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
     int[][] player2BlocksPositions = gridContent[4];
     int player2Color = BLUE;
     drawBlocksByPositions(
-        coordinates,
         player2BlocksPositions,
+        coordinates,
         cellSize,
         player2Color
     );
