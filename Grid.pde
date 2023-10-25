@@ -120,23 +120,16 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
         cellSize
     );
 
-    // TODO combine these 2 into a single function
+    int[][][] blocksPositions = (int[][][]) subset(gridContent, 3);
+    int[] colors = {
+        RED, // player 1 color
+        BLUE // player 2 color
+    };
 
-    int[][] player1BlocksPositions = gridContent[3];
-    int player1Color = RED;
-    drawBlocksByPositions(
-        player1BlocksPositions,
+    drawAllBlocks(
+        blocksPositions,
         coordinates,
         cellSize,
-        player1Color
-    );
-
-    int[][] player2BlocksPositions = gridContent[4];
-    int player2Color = BLUE;
-    drawBlocksByPositions(
-        player2BlocksPositions,
-        coordinates,
-        cellSize,
-        player2Color
+        colors
     );
 }

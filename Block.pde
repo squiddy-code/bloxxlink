@@ -29,3 +29,22 @@ void drawBlocksByPositions(
 
     drawBlocksByCoordinates(blocksCoordinates, cellSize, _color);
 }
+
+void drawAllBlocks(
+    int[][][] positions,
+    int[] gridCoordinates,
+    int cellSize,
+    int[] colors
+) {
+    for (int playerIndex = 0; playerIndex < positions.length; playerIndex++) {
+        int[][] playerBlocksPositions = positions[playerIndex];
+        int _color = colors[playerIndex];
+        
+        drawBlocksByPositions(
+            playerBlocksPositions,
+            gridCoordinates,
+            cellSize,
+            _color
+        );
+    }
+}
