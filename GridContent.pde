@@ -133,7 +133,10 @@ int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
             }
 
             int[] currentPosition = {currentColumn, currentRow};
-            adjacentPositions = (int[][]) append(adjacentPositions, currentPosition);
+            adjacentPositions = (int[][]) append(
+                adjacentPositions,
+                currentPosition
+            );
         }
     }
 
@@ -147,10 +150,21 @@ int[][][] addAdjacentPositionsToGridContent(
 ) {
     int[][] allAdjacentPositions = {};
 
-    for (int positionIndex = 0; positionIndex < positions.length; positionIndex++) {
+    for (
+        int positionIndex = 0;
+        positionIndex < positions.length;
+        positionIndex++
+    ) {
         int[] position = positions[positionIndex];
-        int[][] adjacentPositions = getAdjacentPositions(position, gridDimensions);
-        allAdjacentPositions = (int[][]) concat(allAdjacentPositions, adjacentPositions);
+        int[][] adjacentPositions = getAdjacentPositions(
+            position,
+            gridDimensions
+        );
+        
+        allAdjacentPositions = (int[][]) concat(
+            allAdjacentPositions,
+            adjacentPositions
+        );
     }
 
     return (int[][][]) append(gridContent, allAdjacentPositions);
