@@ -107,21 +107,23 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
 
     drawEmptyGrid(coordinates, gridDimensions, cellSize);
 
-    int[][] playersPositions = gridContent[0];
-    drawPlayersByPositions(
-        coordinates,
-        playersPositions,
-        cellSize
-    );
-
-    int[][] obstaclesPositions = gridContent[1];
+    int[][] obstaclesPositions = gridContent[0];
     drawObstaclesByPositions(
         coordinates,
         obstaclesPositions,
         cellSize
     );
 
-    int[][] player1BlocksPositions = gridContent[2];
+    int[][] playersPositions = gridContent[2];
+    drawPlayersByPositions(
+        coordinates,
+        playersPositions,
+        cellSize
+    );
+
+    // TODO combine these 2 into a single function
+
+    int[][] player1BlocksPositions = gridContent[3];
     int player1Color = RED;
     drawBlocksByPositions(
         coordinates,
@@ -130,7 +132,7 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
         player1Color
     );
 
-    int[][] player2BlocksPositions = gridContent[3];
+    int[][] player2BlocksPositions = gridContent[4];
     int player2Color = BLUE;
     drawBlocksByPositions(
         coordinates,

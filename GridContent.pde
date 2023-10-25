@@ -57,6 +57,10 @@ int[] getRandomGridPositionWithoutDuplicate(
     return randomGridPosition;
 }
 
+int[][] addPositionToPositions(int[] position, int[][] positions) {
+    return (int[][]) append(positions, position);
+}
+
 int[][] getRandomGridPositionsWithoutDuplicates(
     int amount,
     int[] gridDimensions,
@@ -69,10 +73,14 @@ int[][] getRandomGridPositionsWithoutDuplicates(
             gridDimensions,
             gridContent
         );
-        positions = (int[][]) append(positions, position);
+        positions = addPositionToPositions(position, positions);
     }
 
     return positions;
+}
+
+int[][][] addPositionsToGridContent(int[][] positions, int[][][] gridContent) {
+    return (int[][][]) append(gridContent, positions);
 }
 
 int[][][] addRandomPositionsToGridContent(
@@ -85,9 +93,71 @@ int[][][] addRandomPositionsToGridContent(
         gridDimensions,
         gridContent
     );
-    gridContent = (int[][][]) append(gridContent, positions);
 
-    return gridContent;
+    return addPositionsToGridContent(positions, gridContent);
+}
+
+int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
+    int[][] adjacentPositions = {};
+
+    int column = position[0];
+    int row = position[1];
+
+    int columnAmount = gridDimensions[0];
+    int rowAmount = gridDimensions[1];
+
+    int adjacentRowOffset = 1;
+    int adjacentColumnOffset = 1;
+
+    for (int rowOffset = -1; rowOffset <= adjacentRowOffset; rowOffset++) {
+        int currentRow = row + rowOffset;
+        if (currentRow < 0 || currentRow >= rowAmount) {
+            continue;
+        }
+
+        for (
+            int columnOffset = -1;
+            columnOffset <= adjacentColumnOffset;
+            columnOffset++
+        ) {
+            int currentColumn = column + columnOffset;
+            boolean currentPositionIsPosition =
+                columnOffset == 0
+                && rowOffset == 0;
+            
+            if (
+                currentPositionIsPosition
+                || currentColumn < 0
+                || currentColumn >= columnAmount
+            ) {
+                continue;
+            }
+
+            int[] currentPosition = {currentColumn, currentRow};
+            adjacentPositions = addPositionToPositions(
+                currentPosition,
+                adjacentPositions
+            );
+        }
+    }
+
+    return adjacentPositions;
+}
+
+int[][][] addAdjacentPositionsToGridContent(
+    int[][] positions,
+    int[] gridDimensions,
+    int[][][] gridContent
+) {
+    int[][] allAdjacentPositions = {};
+
+    for (int positionIndex = 0; positionIndex < positions.length; positionIndex++) {
+        int[] position = positions[positionIndex];
+        int[][] adjacentPositions = getAdjacentPositions(position, gridDimensions);
+        allAdjacentPositions = (int[][]) concat(allAdjacentPositions, adjacentPositions);
+    }
+
+    return addPositionsToGridContent(allAdjacentPositions, gridContent);
 }
 
 int[][][] addBlocksPositionsToGridContent(
@@ -108,20 +178,28 @@ int[][][] addBlocksPositionsToGridContent(
 }
 
 int[][][] getRandomGridContent(int[] gridDimensions, int[] amounts) {
-    int playerAmount = amounts[0];
-    int obstacleAmount = amounts[1];
+    int obstacleAmount = amounts[0];
+    int playerAmount = amounts[1];
     int blockAmount = amounts[2];
 
     int[][][] gridContent = {};
 
-    gridContent = addRandomPositionsToGridContent(
-        playerAmount,
+    int[][] obstaclesPositions = getRandomGridPositionsWithoutDuplicates(
+        obstacleAmount,
+        gridDimensions,
+        gridContent
+    );
+
+    gridContent = addPositionsToGridContent(obstaclesPositions, gridContent);
+
+    gridContent = addAdjacentPositionsToGridContent(
+        obstaclesPositions,
         gridDimensions,
         gridContent
     );
 
     gridContent = addRandomPositionsToGridContent(
-        obstacleAmount,
+        playerAmount,
         gridDimensions,
         gridContent
     );

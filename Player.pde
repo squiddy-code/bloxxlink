@@ -2,6 +2,7 @@ void drawPlayerHead(int[] coordinates, int size) {
     int x = coordinates[0];
     int y = coordinates[1];
 
+    noFill();
     ellipseMode(CORNER);
     circle(x, y, size);
 }

@@ -20,8 +20,8 @@ void draw() {
     };
 
     int[] gridItemAmounts = {
-        2, // # of players
         3, // # of obstacles
+        2, // # of players
         4  // # of blocks per player
     };
     
