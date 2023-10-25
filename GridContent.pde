@@ -1,3 +1,8 @@
+int[][][] addEmptyArrayToGridContent(int[][][] gridContent) {
+    int[][] emptyArray = {};
+    return (int[][][]) append(gridContent, emptyArray);
+}
+
 int[] getRandomGridPosition(int[] gridDimensions) {
     int columnAmount = gridDimensions[0];
     int rowAmount = gridDimensions[1];
@@ -57,30 +62,16 @@ int[] getRandomGridPositionWithoutDuplicate(
     return randomGridPosition;
 }
 
-int[][] addPositionToPositions(int[] position, int[][] positions) {
-    return (int[][]) append(positions, position);
-}
-
-int[][] getRandomGridPositionsWithoutDuplicates(
-    int amount,
-    int[] gridDimensions,
+int[][][] addPositionToLastArrayOfGridContent(
+    int[] position,
     int[][][] gridContent
 ) {
-    int[][] positions = {};
+    gridContent[gridContent.length - 1] = (int[][]) append(
+        gridContent[gridContent.length - 1],
+        position
+    );
 
-    for (int count = 0; count < amount; count++) {
-        int[] position = getRandomGridPositionWithoutDuplicate(
-            gridDimensions,
-            gridContent
-        );
-        positions = addPositionToPositions(position, positions);
-    }
-
-    return positions;
-}
-
-int[][][] addPositionsToGridContent(int[][] positions, int[][][] gridContent) {
-    return (int[][][]) append(gridContent, positions);
+    return gridContent;
 }
 
 int[][][] addRandomPositionsToGridContent(
@@ -88,13 +79,21 @@ int[][][] addRandomPositionsToGridContent(
     int[] gridDimensions,
     int[][][] gridContent
 ) {
-    int[][] positions = getRandomGridPositionsWithoutDuplicates(
-        amount,
-        gridDimensions,
-        gridContent
-    );
+    gridContent = addEmptyArrayToGridContent(gridContent);
 
-    return addPositionsToGridContent(positions, gridContent);
+    for (int count = 0; count < amount; count++) {
+        int[] position = getRandomGridPositionWithoutDuplicate(
+            gridDimensions,
+            gridContent
+        );
+
+        gridContent = addPositionToLastArrayOfGridContent(
+            position,
+            gridContent
+        );
+    }
+
+    return gridContent;
 }
 
 int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
@@ -134,10 +133,7 @@ int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
             }
 
             int[] currentPosition = {currentColumn, currentRow};
-            adjacentPositions = addPositionToPositions(
-                currentPosition,
-                adjacentPositions
-            );
+            adjacentPositions = (int[][]) append(adjacentPositions, currentPosition);
         }
     }
 
@@ -157,7 +153,7 @@ int[][][] addAdjacentPositionsToGridContent(
         allAdjacentPositions = (int[][]) concat(allAdjacentPositions, adjacentPositions);
     }
 
-    return addPositionsToGridContent(allAdjacentPositions, gridContent);
+    return (int[][][]) append(gridContent, allAdjacentPositions);
 }
 
 int[][][] addBlocksPositionsToGridContent(
@@ -184,13 +180,13 @@ int[][][] getRandomGridContent(int[] gridDimensions, int[] amounts) {
 
     int[][][] gridContent = {};
 
-    int[][] obstaclesPositions = getRandomGridPositionsWithoutDuplicates(
+    gridContent = addRandomPositionsToGridContent(
         obstacleAmount,
         gridDimensions,
         gridContent
     );
 
-    gridContent = addPositionsToGridContent(obstaclesPositions, gridContent);
+    int[][] obstaclesPositions = gridContent[gridContent.length - 1];
 
     gridContent = addAdjacentPositionsToGridContent(
         obstaclesPositions,
