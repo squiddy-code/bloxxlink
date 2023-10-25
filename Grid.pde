@@ -92,7 +92,6 @@ int[][] cellsPositionsToCoordinates(
             margin
         );
         
-        // type cast is necessary so it doesn't get converted to Object
         cellsCoordinates = (int[][]) append(cellsCoordinates, cellCoordinates);
     }
 
