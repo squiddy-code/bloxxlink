@@ -13,6 +13,10 @@ void setup() {
     noLoop();
 }
 
+void windowResized() {
+    println("windowResized");
+}
+
 void draw() {
     int[] gridDimensions = {
         10, // # of columns
@@ -31,8 +35,4 @@ void draw() {
     );
 
     drawMainGameScreen(gridDimensions, gridContent);
-}
-
-void windowResized() {
-    println("resized.");
 }
