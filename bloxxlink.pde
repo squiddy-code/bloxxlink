@@ -19,7 +19,7 @@ void draw() {
         10  // # of rows
     };
 
-    int[] gridItemAmounts = {
+    int[] gridContentAmounts = {
         3, // # of obstacles
         2, // # of players
         4  // # of blocks per player
@@ -27,7 +27,7 @@ void draw() {
     
     int[][][] gridContent = getRandomGridContent(
         gridDimensions,
-        gridItemAmounts
+        gridContentAmounts
     );
 
     drawMainGameScreen(gridDimensions, gridContent);
