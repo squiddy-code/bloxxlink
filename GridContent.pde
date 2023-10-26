@@ -13,37 +13,39 @@ int[] getRandomGridPosition(int[] gridDimensions) {
     return new int[] {column, row};
 }
 
-boolean positionIsInGridContent(
-    int[] position,
-    int[][][] gridContent
-) {
+Integer getGridContentIndexOfPosition(int[] position, int[][][] gridContent) {
     int column = position[0];
     int row = position[1];
 
     for (
-        int gridItemIndex = 0;
-        gridItemIndex < gridContent.length;
-        gridItemIndex++
+        int gridContentIndex = 0;
+        gridContentIndex < gridContent.length;
+        gridContentIndex++
     ) {
-        int[][] gridItem = gridContent[gridItemIndex];
+        int[][] positions = gridContent[gridContentIndex];
 
         for (
             int positionIndex = 0;
-            positionIndex < gridItem.length;
+            positionIndex < positions.length;
             positionIndex++
         ) {
-            int[] gridItemPosition = gridItem[positionIndex];
+            int[] currentPosition = positions[positionIndex];
 
-            int gridItemColumn = gridItemPosition[0];
-            int gridItemRow = gridItemPosition[1];
+            int currentColumn = currentPosition[0];
+            int currentRow = currentPosition[1];
 
-            if (column == gridItemColumn && row == gridItemRow) {
-                return true;
+            if (currentColumn == column && currentRow == row) {
+                return gridContentIndex;
             }
         }
     }
 
-    return false;
+    return null;
+}
+
+boolean positionIsInGridContent(int[] position, int[][][] gridContent) {
+    Integer gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
+    return gridContentIndex != null;
 }
 
 int[] getRandomGridPositionWithoutDuplicate(
