@@ -1,6 +1,7 @@
 int[][][] addEmptyArrayToGridContent(int[][][] gridContent) {
     int[][] emptyArray = {};
-    return (int[][][]) append(gridContent, emptyArray);
+    // return (int[][][]) append(gridContent, emptyArray);
+    return appendTo3DArray(gridContent, emptyArray);
 }
 
 int[] getRandomGridPosition(int[] gridDimensions) {
@@ -43,9 +44,41 @@ Integer getGridContentIndexOfPosition(int[] position, int[][][] gridContent) {
     return null;
 }
 
-boolean positionIsInGridContent(int[] position, int[][][] gridContent) {
+boolean positionIsEmpty(int[] position, int[][][] gridContent) {
     Integer gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
-    return gridContentIndex != null;
+    return gridContentIndex == null;
+}
+
+// boolean positionsAreEmpty(int[][] positions, int[][][] gridContent) {
+//     for (int positionIndex = 0; positionIndex < positions.length; positionIndex++) {
+//         int[] position = positions[positionIndex];
+
+//         if (!positionIsEmpty(position, gridContent)) {
+//             return false;
+//         }
+//     }
+
+//     return true;
+// }
+
+boolean gridContentIndexIsObstacle(int gridContentIndex) {
+    int obstacleIndex = 0;
+    return gridContentIndex == obstacleIndex;
+}
+
+boolean gridContentIndexIsElectricField(int gridContentIndex) {
+    int electricFieldIndex = 1;
+    return gridContentIndex == electricFieldIndex;
+}
+
+boolean gridContentIndexIsPlayer(int gridContentIndex) {
+    int playerIndex = 2;
+    return gridContentIndex == playerIndex;
+}
+
+boolean positionHasPlayer(int[] position, int[][][] gridContent) {
+    int gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
+    return gridContentIndexIsPlayer(gridContentIndex);
 }
 
 int[] getRandomGridPositionWithoutDuplicate(
@@ -54,7 +87,7 @@ int[] getRandomGridPositionWithoutDuplicate(
 ) {
     int[] randomGridPosition = getRandomGridPosition(gridDimensions);
 
-    if (positionIsInGridContent(randomGridPosition, gridContent)) {
+    if (!positionIsEmpty(randomGridPosition, gridContent)) {
         randomGridPosition = getRandomGridPositionWithoutDuplicate(
             gridDimensions,
             gridContent
@@ -68,7 +101,11 @@ int[][][] addPositionToLastArrayOfGridContent(
     int[] position,
     int[][][] gridContent
 ) {
-    gridContent[gridContent.length - 1] = (int[][]) append(
+    // gridContent[gridContent.length - 1] = (int[][]) append(
+    //     gridContent[gridContent.length - 1],
+    //     position
+    // );
+    gridContent[gridContent.length - 1] = appendTo2DArray(
         gridContent[gridContent.length - 1],
         position
     );
@@ -135,7 +172,11 @@ int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
             }
 
             int[] currentPosition = {currentColumn, currentRow};
-            adjacentPositions = (int[][]) append(
+            // adjacentPositions = (int[][]) append(
+            //     adjacentPositions,
+            //     currentPosition
+            // );
+            adjacentPositions = appendTo2DArray(
                 adjacentPositions,
                 currentPosition
             );
@@ -163,13 +204,18 @@ int[][][] addAdjacentPositionsToGridContent(
             gridDimensions
         );
         
-        allAdjacentPositions = (int[][]) concat(
+        // allAdjacentPositions = (int[][]) concat(
+        //     allAdjacentPositions,
+        //     adjacentPositions
+        // );
+        allAdjacentPositions = concat2DArray(
             allAdjacentPositions,
             adjacentPositions
         );
     }
 
-    return (int[][][]) append(gridContent, allAdjacentPositions);
+    // return (int[][][]) append(gridContent, allAdjacentPositions);
+    return (int[][][]) appendTo3DArray(gridContent, allAdjacentPositions);
 }
 
 int[][][] addBlocksPositionsToGridContent(
@@ -224,4 +270,70 @@ int[][][] getRandomGridContent(int[] gridDimensions, int[] amounts) {
     );
 
     return gridContent;
+}
+
+int[] getPlayerPosition(int playerNumber, int[][][] gridContent) {
+    int[][] playersPositions = gridContent[2];
+    return playersPositions[playerNumber - 1];
+}
+
+int[][][] copyGridContent(int[][][] gridContent) {
+    int[][][] gridContentCopy = new int[gridContent.length][][];
+
+    for (
+        int gridContentIndex = 0;
+        gridContentIndex < gridContent.length;
+        gridContentIndex++
+    ) {
+        int[][] positions = gridContent[gridContentIndex];
+        gridContentCopy[gridContentIndex] = new int[positions.length][];
+
+        for (
+            int positionIndex = 0;
+            positionIndex < positions.length;
+            positionIndex++
+        ) {
+            // TODO use copyIntegerArray?
+
+            int[] position = positions[positionIndex];
+            gridContentCopy[gridContentIndex][positionIndex] =
+                new int[position.length];
+
+            for (
+                int dimensionIndex = 0;
+                dimensionIndex < position.length;
+                dimensionIndex++
+            ) {
+                int dimension =
+                    gridContent[gridContentIndex][positionIndex][dimensionIndex];
+
+                gridContentCopy[gridContentIndex][positionIndex][
+                    dimensionIndex
+                ] = dimension;
+            }
+        }
+    }
+
+    return gridContentCopy;
+}
+
+void printGridContent(int[][][] gridContent) {
+    for (
+        int gridContentIndex = 0;
+        gridContentIndex < gridContent.length;
+        gridContentIndex++
+    ) {
+        println("grid content index");
+        println(gridContentIndex);
+
+        int[][] positions = gridContent[gridContentIndex];
+        for (
+            int positionIndex = 0;
+            positionIndex < positions.length;
+            positionIndex++
+        ) {
+            int[] position = positions[positionIndex];
+            println(position);
+        }
+    }
 }
