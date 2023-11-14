@@ -107,24 +107,3 @@ boolean positionHasPlayer(int[] position, int[][][] gridContent) {
     int gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
     return gridContentIndexIsPlayer(gridContentIndex);
 }
-
-void printGridContent(int[][][] gridContent) {
-    for (
-        int gridContentIndex = 0;
-        gridContentIndex < gridContent.length;
-        gridContentIndex++
-    ) {
-        println("grid content index");
-        println(gridContentIndex);
-
-        int[][] positions = gridContent[gridContentIndex];
-        for (
-            int positionIndex = 0;
-            positionIndex < positions.length;
-            positionIndex++
-        ) {
-            int[] position = positions[positionIndex];
-            println(position);
-        }
-    }
-}
