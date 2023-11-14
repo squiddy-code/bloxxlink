@@ -20,12 +20,6 @@ int[] gridDimensions = {
     10  // # of rows
 };
 
-// int[] gridContentAmounts = {
-//     3, // # of obstacles
-//     2, // # of players
-//     4  // # of blocks per player
-// };
-
 int[] gridContentAmounts = {
     0, // # of obstacles
     2, // # of players
@@ -38,14 +32,6 @@ int[][][] gridContent = getRandomGridContent(
 );
 
 void draw() {
-    // int[][][] soep = {{{0, 1}}};
-    // soep = appendTo3DimensionalArray(soep, new int[][] {{2, 3}});
-
-    // int[][] positionsBetweenPositions = getPositionsBetweenPositions(new int[] {0, 0}, new int[] {3, 0}, 0);
-    // for (int i = 0; i < positionsBetweenPositions.length; i++) {
-    //     println(positionsBetweenPositions[i]);
-    // }
-
     clearScreen();
     drawMainGameScreen(gridDimensions, gridContent);
 }

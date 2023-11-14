@@ -28,10 +28,6 @@ int[][][] addPositionToLastArrayOfGridContent(
     int[] position,
     int[][][] gridContent
 ) {
-    // gridContent[gridContent.length - 1] = (int[][]) append(
-    //     gridContent[gridContent.length - 1],
-    //     position
-    // );
     gridContent[gridContent.length - 1] = appendTo2DArray(
         gridContent[gridContent.length - 1],
         position
@@ -99,10 +95,6 @@ int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
             }
 
             int[] currentPosition = {currentColumn, currentRow};
-            // adjacentPositions = (int[][]) append(
-            //     adjacentPositions,
-            //     currentPosition
-            // );
             adjacentPositions = appendTo2DArray(
                 adjacentPositions,
                 currentPosition
@@ -130,18 +122,13 @@ int[][][] addAdjacentPositionsToGridContent(
             position,
             gridDimensions
         );
-        
-        // allAdjacentPositions = (int[][]) concat(
-        //     allAdjacentPositions,
-        //     adjacentPositions
-        // );
+
         allAdjacentPositions = concat2DArray(
             allAdjacentPositions,
             adjacentPositions
         );
     }
 
-    // return (int[][][]) append(gridContent, allAdjacentPositions);
     return (int[][][]) appendTo3DArray(gridContent, allAdjacentPositions);
 }
 

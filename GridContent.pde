@@ -39,21 +39,8 @@ boolean positionIsEmpty(int[] position, int[][][] gridContent) {
 
 int[][][] addEmptyArrayToGridContent(int[][][] gridContent) {
     int[][] emptyArray = {};
-    // return (int[][][]) append(gridContent, emptyArray);
     return appendTo3DArray(gridContent, emptyArray);
 }
-
-// boolean positionsAreEmpty(int[][] positions, int[][][] gridContent) {
-//     for (int positionIndex = 0; positionIndex < positions.length; positionIndex++) {
-//         int[] position = positions[positionIndex];
-
-//         if (!positionIsEmpty(position, gridContent)) {
-//             return false;
-//         }
-//     }
-
-//     return true;
-// }
 
 int[] getPlayerPosition(int playerNumber, int[][][] gridContent) {
     int[][] playersPositions = gridContent[2];

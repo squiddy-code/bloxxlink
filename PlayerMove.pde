@@ -118,13 +118,6 @@ boolean canMoveToPosition(
         return true;
     }
 
-    // if (positionIsOnEdge(position, gridDimensions)) {
-    //     println("cannot move to position (position is on edge)");
-    //     println(position);
-
-    //     return false;
-    // }
-
     boolean positionHasObstacle = gridContentIndexIsObstacle(gridContentIndex);
     boolean positionHasElectricField = gridContentIndexIsElectricField(
         gridContentIndex
@@ -135,65 +128,6 @@ boolean canMoveToPosition(
         (canEnterElectricField || !positionHasElectricField)
     );
 }
-
-// boolean rowCanBePushed(
-//     int[] position,
-//     int[] newPosition,
-//     int[] gridDimensions,
-//     int[][][] gridContent
-// ) {
-//     int column = position[0];
-//     int row = position[1];
-
-//     int newColumn = newPosition[0];
-//     int newRow = newPosition[1];
-
-//     int columnAmount = gridDimensions[0];
-//     int rowAmount = gridDimensions[1];
-
-//     boolean changedDimensionIsColumn = newColumn != column && newRow == row;
-
-//     int newDimension = changedDimensionIsColumn ? newColumn : newRow;
-//     int dimensionAmount = changedDimensionIsColumn ? columnAmount : rowAmount;
-
-//     for (
-//         int currentDimension = newDimension;
-//         currentDimension < dimensionAmount;
-//         currentDimension++
-//     ) {
-//         int currentColumn = changedDimensionIsColumn
-//             ? currentDimension
-//             : newColumn;
-
-//         int currentRow = !changedDimensionIsColumn ? currentDimension : newRow;
-
-//         int[] currentPosition = {currentColumn, currentRow};
-//         if (positionIsEmpty(currentPosition, gridContent)) {
-//             println("position is empty 1");
-//             println(newPosition);
-
-//             return true;
-//         }
-
-//         boolean isFirstMove = currentDimension == newDimension;
-
-//         if (
-//             !canMoveToPosition(
-//                 currentPosition,
-//                 gridDimensions,
-//                 gridContent,
-//                 isFirstMove
-//             )
-//         ) {
-//             println("cannot move to position");
-//             println(newPosition);
-
-//             return false;
-//         }
-//     }
-
-//     return true;
-// }
 
 // TODO fix potential bug: player cannot move because there's an obstacle in the same row
 boolean rowCanBePushed(
@@ -247,138 +181,6 @@ boolean rowCanBePushed(
 
     return true;
 }
-
-// int[][][] tryToMovePlayer(
-//     int[] position,
-//     int[] newPosition,
-//     int[] gridDimensions,
-//     int[][][] gridContent
-// ) {
-//     println("trying to move player from position");
-//     println(position);
-//     println("to position");
-//     println(newPosition);
-
-//     if (
-//         !rowCanBePushed(
-//             position,
-//             newPosition,
-//             gridDimensions,
-//             gridContent
-//         )
-//     ) {
-//         println("player cannot be moved (row cannot be pushed)");
-//         println(newPosition);
-
-//         return gridContent;
-//     }
-
-//     int[][][] newGridContent = copyGridContent(gridContent);
-
-//     int column = newPosition[0];
-//     int row = newPosition[1];
-
-//     int previousColumn = position[0];
-//     int previousRow = position[1];
-
-//     int deltaColumn = column - previousColumn;
-//     int deltaRow = row - previousRow;
-
-//     boolean dimensionIsColumn = column != previousColumn;
-
-//     for (
-//         int gridContentIndex = 0;
-//         gridContentIndex < gridContent.length;
-//         gridContentIndex++
-//     ) {
-//         int[][] positions = gridContent[gridContentIndex];
-
-//         for (
-//             int positionIndex = 0;
-//             positionIndex < positions.length;
-//             positionIndex++
-//         ) {
-//             int[] currentPosition = positions[positionIndex];
-
-//             int currentColumn = currentPosition[0];
-//             int currentRow = currentPosition[1];
-
-//             int newColumn = currentColumn;
-//             int newRow = currentRow;
-
-//             if (
-//                 currentRow == row &&
-//                 (
-//                     currentColumn == column - deltaColumn ||
-//                     (deltaColumn < 0 && currentColumn <= column) ||
-//                     (deltaColumn > 0 && currentColumn >= column)
-//                 )
-//             ) {
-//                 newColumn += deltaColumn;
-//             }
-
-//             if (
-//                 currentColumn == column &&
-//                 // (
-//                 //     currentRow == previousRow ||
-//                 //     currentRow == previousRow - 1 ||
-//                 //     currentRow == previousRow + 1 ||
-//                 //     (deltaRow < 0 && currentRow <= row) ||
-//                 //     (deltaRow > 0 && currentRow >= row)
-//                 // )
-//                 (
-//                     currentRow == row - deltaRow ||
-//                     (deltaRow < 0 && currentRow <= row) ||
-//                     (deltaRow > 0 && currentRow >= row)
-//                 )
-//             ) {
-//                 newRow += deltaRow;
-//             }
-
-//             int[] newPosition = {newColumn, newRow};
-
-//             boolean isPlayerMoveToEmptyPosition = 
-//                 gridContentIndex == 2 &&
-//                 positionIsEmpty(newPosition, gridContent);
-
-//             newGridContent[gridContentIndex][positionIndex] = newPosition;
-
-//             if (isPlayerMoveToEmptyPosition) {
-//                 return newGridContent;
-//             }
-//         }
-//     }
-
-//     return newGridContent;
-// }
-
-// int[][] getPositionsBetweenPositions(
-//     int[] positionA,
-//     int[] positionB,
-//     int dimensionIndex
-// ) {
-//     if (positionA[dimensionIndex] > positionB[dimensionIndex]) {
-//         int[] previousPositionA = copyIntegerArray(positionA);
-
-//         positionA = copyIntegerArray(positionB);
-//         positionB = previousPositionA;
-//     }
-
-//     int[][] positions = {};
-
-//     for (
-//         int currentDimension = positionA[dimensionIndex];
-//         currentDimension <= positionB[dimensionIndex];
-//         currentDimension++
-//     ) {
-//         int[] position = copyIntegerArray(positionA);
-//         position[dimensionIndex] = currentDimension;
-
-//         positions = (int[][]) append(positions, position);
-//     }
-
-//     return positions;
-// }
 
 int[][][] tryToMovePlayer(
     int[] position,
@@ -440,24 +242,11 @@ int[][][] tryToMovePlayer(
             int[] previousPosition = copyIntegerArray(currentPosition);
             previousPosition[dimensionIndex] -= deltaDimension;
 
-            // int[][] positionsInBetween = getPositionsBetweenPositions(
-            //     newPosition,
-            //     currentPosition,
-            //     dimensionIndex
-            // );
-
-            // println("----");
-            // for (int i = 0; i < positionsInBetween.length; i++) {
-            //     println(positionsInBetween[i]);
-            // }
-            // println("----");
-
             if (
                 isSameOppositeDimension &&
                 currentDeltaDimension * deltaDimension >= 0 &&
                 (
                     !positionIsEmpty(previousPosition, gridContent) ||
-                    // !positionsAreEmpty(positionsInBetween, gridContent) ||
                     positionHasPlayer(currentPosition, gridContent)
                 )
             ) {
@@ -473,13 +262,6 @@ int[][][] tryToMovePlayer(
             newGridContent[gridContentIndex][
                 positionIndex
             ] = newCurrentPosition;
-
-            // if (positionIsEmpty(newCurrentPosition, gridContent)) {
-            //     println("new current position is empty, done moving player");
-            //     println(newCurrentPosition);
-
-            //     return newGridContent;
-            // }
         }
     }
 

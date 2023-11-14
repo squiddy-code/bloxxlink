@@ -92,7 +92,6 @@ int[][] cellsPositionsToCoordinates(
             margin
         );
         
-        // cellsCoordinates = (int[][]) append(cellsCoordinates, cellCoordinates);
         cellsCoordinates = appendTo2DArray(cellsCoordinates, cellCoordinates);
     }
 
