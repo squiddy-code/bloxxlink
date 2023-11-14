@@ -106,7 +106,10 @@ boolean canMoveToPosition(
         return false;
     }
 
-    Integer gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
+    Integer gridContentIndex = getGridContentIndexOfPosition(
+        position,
+        gridContent
+    );
 
     if (gridContentIndex == null) {
         println("can move to position (position is empty 2)");
@@ -123,7 +126,9 @@ boolean canMoveToPosition(
     // }
 
     boolean positionHasObstacle = gridContentIndexIsObstacle(gridContentIndex);
-    boolean positionHasElectricField = gridContentIndexIsElectricField(gridContentIndex);
+    boolean positionHasElectricField = gridContentIndexIsElectricField(
+        gridContentIndex
+    );
 
     return (
         !positionHasObstacle &&
@@ -465,7 +470,9 @@ int[][][] tryToMovePlayer(
                 println(newCurrentPosition);
             }
 
-            newGridContent[gridContentIndex][positionIndex] = newCurrentPosition;
+            newGridContent[gridContentIndex][
+                positionIndex
+            ] = newCurrentPosition;
 
             // if (positionIsEmpty(newCurrentPosition, gridContent)) {
             //     println("new current position is empty, done moving player");

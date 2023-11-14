@@ -29,7 +29,11 @@ int[][] concat2DArray(int[][] array1, int[][] array2) {
         concatenatedArray[array1Index] = array1[array1Index];
     }
 
-    for (int array2Index = concatenatedArray.length - 1; array2Index < array2.length; array2Index++) {
+    for (
+        int array2Index = concatenatedArray.length - 1;
+        array2Index < array2.length;
+        array2Index++
+    ) {
         concatenatedArray[array2Index] = array2[array2Index];
     }
 

@@ -29,7 +29,11 @@ Integer getGridContentIndexOfPosition(int[] position, int[][][] gridContent) {
 }
 
 boolean positionIsEmpty(int[] position, int[][][] gridContent) {
-    Integer gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
+    Integer gridContentIndex = getGridContentIndexOfPosition(
+        position,
+        gridContent
+    );
+
     return gridContentIndex == null;
 }
 
@@ -93,8 +97,9 @@ int[][][] copyGridContent(int[][][] gridContent) {
                 dimensionIndex < position.length;
                 dimensionIndex++
             ) {
-                int dimension =
-                    gridContent[gridContentIndex][positionIndex][dimensionIndex];
+                int dimension = gridContent[gridContentIndex][positionIndex][
+                    dimensionIndex
+                ];
 
                 gridContentCopy[gridContentIndex][positionIndex][
                     dimensionIndex
