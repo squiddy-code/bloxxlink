@@ -75,6 +75,10 @@ boolean dimensionIsInsideGrid(
     return dimension >= 0 && dimension < dimensionAmount;
 }
 
+boolean dimensionIsOnEdge(int dimension, int dimensionAmount) {
+    return dimension == 0 || dimension + 1 == dimensionAmount;
+}
+
 boolean positionIsOutsideGrid(int[] position, int[] gridDimensions) {
     int column = position[0];
     int row = position[1];
@@ -185,10 +189,6 @@ boolean canMoveToPosition(
 
 //     return true;
 // }
-
-boolean dimensionIsOnEdge(int dimension, int dimensionAmount) {
-    return dimension == 0 || dimension + 1 == dimensionAmount;
-}
 
 // TODO fix potential bug: player cannot move because there's an obstacle in the same row
 boolean rowCanBePushed(

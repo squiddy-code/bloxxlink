@@ -1,9 +1,3 @@
-int[][][] addEmptyArrayToGridContent(int[][][] gridContent) {
-    int[][] emptyArray = {};
-    // return (int[][][]) append(gridContent, emptyArray);
-    return appendTo3DArray(gridContent, emptyArray);
-}
-
 Integer getGridContentIndexOfPosition(int[] position, int[][][] gridContent) {
     int column = position[0];
     int row = position[1];
@@ -39,6 +33,12 @@ boolean positionIsEmpty(int[] position, int[][][] gridContent) {
     return gridContentIndex == null;
 }
 
+int[][][] addEmptyArrayToGridContent(int[][][] gridContent) {
+    int[][] emptyArray = {};
+    // return (int[][][]) append(gridContent, emptyArray);
+    return appendTo3DArray(gridContent, emptyArray);
+}
+
 // boolean positionsAreEmpty(int[][] positions, int[][][] gridContent) {
 //     for (int positionIndex = 0; positionIndex < positions.length; positionIndex++) {
 //         int[] position = positions[positionIndex];
@@ -51,6 +51,11 @@ boolean positionIsEmpty(int[] position, int[][][] gridContent) {
 //     return true;
 // }
 
+int[] getPlayerPosition(int playerNumber, int[][][] gridContent) {
+    int[][] playersPositions = gridContent[2];
+    return playersPositions[playerNumber - 1];
+}
+
 boolean gridContentIndexIsObstacle(int gridContentIndex) {
     int obstacleIndex = 0;
     return gridContentIndex == obstacleIndex;
@@ -59,21 +64,6 @@ boolean gridContentIndexIsObstacle(int gridContentIndex) {
 boolean gridContentIndexIsElectricField(int gridContentIndex) {
     int electricFieldIndex = 1;
     return gridContentIndex == electricFieldIndex;
-}
-
-boolean gridContentIndexIsPlayer(int gridContentIndex) {
-    int playerIndex = 2;
-    return gridContentIndex == playerIndex;
-}
-
-boolean positionHasPlayer(int[] position, int[][][] gridContent) {
-    int gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
-    return gridContentIndexIsPlayer(gridContentIndex);
-}
-
-int[] getPlayerPosition(int playerNumber, int[][][] gridContent) {
-    int[][] playersPositions = gridContent[2];
-    return playersPositions[playerNumber - 1];
 }
 
 int[][][] copyGridContent(int[][][] gridContent) {
@@ -114,6 +104,16 @@ int[][][] copyGridContent(int[][][] gridContent) {
     }
 
     return gridContentCopy;
+}
+
+boolean gridContentIndexIsPlayer(int gridContentIndex) {
+    int playerIndex = 2;
+    return gridContentIndex == playerIndex;
+}
+
+boolean positionHasPlayer(int[] position, int[][][] gridContent) {
+    int gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
+    return gridContentIndexIsPlayer(gridContentIndex);
 }
 
 void printGridContent(int[][][] gridContent) {
