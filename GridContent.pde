@@ -242,6 +242,7 @@ int[][][] getRandomGridContent(int[] gridDimensions, int[] amounts) {
 
     int[][][] gridContent = {};
 
+    // add the obstacles
     gridContent = addRandomPositionsToGridContent(
         obstacleAmount,
         gridDimensions,
@@ -250,18 +251,21 @@ int[][][] getRandomGridContent(int[] gridDimensions, int[] amounts) {
 
     int[][] obstaclesPositions = gridContent[gridContent.length - 1];
 
+    // add the electric fields
     gridContent = addAdjacentPositionsToGridContent(
         obstaclesPositions,
         gridDimensions,
         gridContent
     );
 
+    // add the players
     gridContent = addRandomPositionsToGridContent(
         playerAmount,
         gridDimensions,
         gridContent
     );
 
+    // add the blocks
     gridContent = addBlocksPositionsToGridContent(
         blockAmount,
         playerAmount,
