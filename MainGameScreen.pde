@@ -63,5 +63,5 @@ void drawMainGameScreen(int[] gridDimensions, int[][][] gridContent) {
     );
 
     coordinates = getGridCoordinates(coordinates, scoreCounterHeight);
-    drawGrid(coordinates, gridDimensions, gridContent);
+    drawGrid(coordinates, gridDimensions, cellSize, gridContent);
 }

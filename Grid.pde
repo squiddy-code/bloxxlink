@@ -1,23 +1,3 @@
-int[] getGridCoordinates(int[] previousCoordinates, int scoreCounterHeight) {
-    int x1 = previousCoordinates[0];
-    int y1 = previousCoordinates[1] + scoreCounterHeight;
-
-    int x2 = previousCoordinates[2];
-    int y2 = previousCoordinates[3];
-
-    return new int[] {x1, y1, x2, y2};
-}
-
-int[] getAvailableGridSize(int[] mainGameScreenSize, int scoreCounterHeight) {
-    int mainGameScreenWidth = mainGameScreenSize[0];
-    int mainGameScreenHeight = mainGameScreenSize[1];
-
-    int availableGridWidth = mainGameScreenWidth;
-    int availableGridHeight = mainGameScreenHeight - scoreCounterHeight;
-
-    return new int[] {availableGridWidth, availableGridHeight};
-}
-
 int getGridCellSize(int[] availableGridSize, int[] gridDimensions) {
     int availableGridWidth = availableGridSize[0];
     int availableGridHeight = availableGridSize[1];
@@ -39,6 +19,16 @@ int[] getGridSize(int gridCellSize, int[] gridDimensions) {
     int height = gridCellSize * rowAmount;
 
     return new int[] {width, height};
+}
+
+int[] getGridCoordinates(int[] previousCoordinates, int scoreCounterHeight) {
+    int x1 = previousCoordinates[0];
+    int y1 = previousCoordinates[1] + scoreCounterHeight;
+
+    int x2 = previousCoordinates[2];
+    int y2 = previousCoordinates[3];
+
+    return new int[] {x1, y1, x2, y2};
 }
 
 void drawEmptyGrid(int[] coordinates, int[] gridDimensions, int cellSize) {
@@ -99,11 +89,13 @@ int[][] cellsPositionsToCoordinates(
     return cellsCoordinates;
 }
 
-void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
+void drawGrid(
+    int[] coordinates,
+    int[] gridDimensions,
+    int cellSize,
+    int[][][] gridContent
+) {
     fill(WHITE);
-
-    int[] availableGridSize = getSizeFromCoordinates(coordinates);
-    int cellSize = getGridCellSize(availableGridSize, gridDimensions);
 
     drawEmptyGrid(coordinates, gridDimensions, cellSize);
 
@@ -121,6 +113,7 @@ void drawGrid(int[] coordinates, int[] gridDimensions, int[][][] gridContent) {
         cellSize
     );
 
+    // TODO create custom array method for this
     int[][][] blocksPositions = (int[][][]) subset(gridContent, 3);
     int[] colors = {
         RED, // player 1 color
