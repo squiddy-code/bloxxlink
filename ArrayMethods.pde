@@ -1,25 +1,3 @@
-int[] copyIntegerArray(int[] array) {
-    int[] arrayCopy = new int[array.length];
-
-    for (int index = 0; index < array.length; index++) {
-        arrayCopy[index] = array[index];
-    }
-
-    return arrayCopy;
-}
-
-boolean integerIsInArray(int integer, int[] array) {
-    for (int integerIndex = 0; integerIndex < array.length; integerIndex++) {
-        int currentInteger = array[integerIndex];
-
-        if (currentInteger == integer) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 int[][] appendTo2DArray(int[][] array, int[] item) {
     int[][] newArray = new int[array.length + 1][];
 
@@ -56,4 +34,26 @@ int[][] concat2DArray(int[][] array1, int[][] array2) {
     }
 
     return concatenatedArray;
+}
+
+boolean integerIsInArray(int integer, int[] array) {
+    for (int integerIndex = 0; integerIndex < array.length; integerIndex++) {
+        int currentInteger = array[integerIndex];
+
+        if (currentInteger == integer) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int[] copyIntegerArray(int[] array) {
+    int[] arrayCopy = new int[array.length];
+
+    for (int index = 0; index < array.length; index++) {
+        arrayCopy[index] = array[index];
+    }
+
+    return arrayCopy;
 }
