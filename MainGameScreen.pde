@@ -1,4 +1,4 @@
-int[] getMainGameScreenCoordinates(
+int[] getMarginToCenter(
     int[] margin,
     int[] gridSize,
     int scoreCounterHeight
@@ -19,6 +19,26 @@ int[] getMainGameScreenCoordinates(
         - gridHeight 
         - marginY;
     int marginYToCenter = leftoverVerticalSpace / 2;
+
+    return new int[] {marginXToCenter, marginYToCenter};
+}
+
+int[] getMainGameScreenCoordinates(
+    int[] margin,
+    int[] gridSize,
+    int scoreCounterHeight
+) {
+    int marginX = margin[0];
+    int marginY = margin[1];
+
+    int[] marginToCenter = getMarginToCenter(
+        margin,
+        gridSize,
+        scoreCounterHeight
+    );
+
+    int marginXToCenter = marginToCenter[0];
+    int marginYToCenter = marginToCenter[1];
 
     int x1 = marginX + marginXToCenter;
     int y1 = marginY + marginYToCenter;
