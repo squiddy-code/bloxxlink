@@ -136,6 +136,10 @@ boolean rowCanBePushed(
     int[] gridDimensions,
     int[][][] gridContent
 ) {
+    if (positionIsOutsideGrid(newPosition, gridDimensions)) {
+        return false;
+    }
+
     // TODO make function getDimensionIndex?
     int dimensionIndex = changedDimensionIsColumn(position, newPosition)
         ? 0
