@@ -182,7 +182,7 @@ boolean rowCanBePushed(
     return true;
 }
 
-int[][][] tryToMovePlayer(
+int[][][] movePlayer(
     int[] position,
     int[] newPosition,
     int[] gridDimensions,
@@ -192,20 +192,6 @@ int[][][] tryToMovePlayer(
     println(position);
     println("to position");
     println(newPosition);
-
-    if (
-        !rowCanBePushed(
-            position,
-            newPosition,
-            gridDimensions,
-            gridContent
-        )
-    ) {
-        println("player cannot be moved (row cannot be pushed)");
-        println(newPosition);
-
-        return gridContent;
-    }
 
     int[][][] newGridContent = copyGridContent(gridContent);
 
