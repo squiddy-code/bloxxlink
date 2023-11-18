@@ -73,25 +73,9 @@ int[][][] copyGridContent(int[][][] gridContent) {
             positionIndex < positions.length;
             positionIndex++
         ) {
-            // TODO use copyIntegerArray?
-
             int[] position = positions[positionIndex];
             gridContentCopy[gridContentIndex][positionIndex] =
-                new int[position.length];
-
-            for (
-                int dimensionIndex = 0;
-                dimensionIndex < position.length;
-                dimensionIndex++
-            ) {
-                int dimension = gridContent[gridContentIndex][positionIndex][
-                    dimensionIndex
-                ];
-
-                gridContentCopy[gridContentIndex][positionIndex][
-                    dimensionIndex
-                ] = dimension;
-            }
+                copyIntegerArray(position);
         }
     }
 
