@@ -47,16 +47,6 @@ int[] getPlayerPosition(int playerIndex, int[][][] gridContent) {
     return playersPositions[playerIndex];
 }
 
-boolean gridContentIndexIsObstacle(int gridContentIndex) {
-    int obstacleIndex = 0;
-    return gridContentIndex == obstacleIndex;
-}
-
-boolean gridContentIndexIsElectricField(int gridContentIndex) {
-    int electricFieldIndex = 1;
-    return gridContentIndex == electricFieldIndex;
-}
-
 int[][][] copyGridContent(int[][][] gridContent) {
     int[][][] gridContentCopy = new int[gridContent.length][][];
 
@@ -82,12 +72,32 @@ int[][][] copyGridContent(int[][][] gridContent) {
     return gridContentCopy;
 }
 
-boolean gridContentIndexIsPlayer(int gridContentIndex) {
-    int playerIndex = 2;
-    return gridContentIndex == playerIndex;
+boolean positionInPositions(int[] position, int[][] positions) {
+    for (
+        int positionIndex = 0;
+        positionIndex < positions.length; 
+        positionIndex++
+    ) {
+        int[] currentPosition = positions[positionIndex];
+
+        if (equalIntegerArrays(currentPosition, position)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
-boolean positionHasPlayer(int[] position, int[][][] gridContent) {
-    int gridContentIndex = getGridContentIndexOfPosition(position, gridContent);
-    return gridContentIndexIsPlayer(gridContentIndex);
+boolean positionHasObstacle(int[] position, int[][][] gridContent) {
+    int obstacleGridContentIndex = 0;
+    int[][] obstaclePositions = gridContent[obstacleGridContentIndex];
+
+    return positionInPositions(position, obstaclePositions);
+}
+
+boolean positionHasElectricField(int[] position, int[][][] gridContent) {
+    int electricFieldGridContentIndex = 1;
+    int[][] electricFieldPositions = gridContent[electricFieldGridContentIndex];
+
+    return positionInPositions(position, electricFieldPositions);
 }

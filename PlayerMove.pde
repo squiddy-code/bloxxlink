@@ -58,133 +58,23 @@ int[] getNewPlayerPosition(int keyCode, int[] currentPosition) {
     return new int[] {newColumn, newRow};
 }
 
-boolean changedDimensionIsColumn(int[] position, int[] newPosition) {
+int getDimensionIndex(int[] position, int[] newPosition) {
     int column = position[0];
     int row = position[1];
 
     int newColumn = newPosition[0];
     int newRow = newPosition[1];
 
-    return newColumn != column && newRow == row;
+    boolean changedDimensionIsColumn = newColumn != column;
+
+    int columnIndex = 0;
+    int rowIndex = 1;
+
+    return changedDimensionIsColumn ? columnIndex : rowIndex;
 }
 
-boolean dimensionIsInsideGrid(
-    int dimension,
-    int dimensionAmount
-) {
-    return dimension >= 0 && dimension < dimensionAmount;
-}
-
-boolean dimensionIsOnEdge(int dimension, int dimensionAmount) {
-    return dimension == 0 || dimension + 1 == dimensionAmount;
-}
-
-boolean positionIsOutsideGrid(int[] position, int[] gridDimensions) {
-    int column = position[0];
-    int row = position[1];
-
-    int columnAmount = gridDimensions[0];
-    int rowAmount = gridDimensions[1];
-
-    return column < 0 || row < 0 || column >= columnAmount || row >= rowAmount;
-}
-
-boolean canMoveToPosition(
-    int[] position,
-    int[] gridDimensions,
-    int[][][] gridContent,
-    boolean canEnterElectricField
-) {
-    println("can move to position");
-    println(position);
-
-    if (positionIsOutsideGrid(position, gridDimensions)) {
-        println("I SHOULD NEVER HAVE BEEN CALLED");
-        println("cannot move to position (position is outside grid 2)");
-        println(position);
-
-        return false;
-    }
-
-    Integer gridContentIndex = getGridContentIndexOfPosition(
-        position,
-        gridContent
-    );
-
-    if (gridContentIndex == null) {
-        println("can move to position (position is empty 2)");
-        println(position);
-
-        return true;
-    }
-
-    boolean positionHasObstacle = gridContentIndexIsObstacle(gridContentIndex);
-    boolean positionHasElectricField = gridContentIndexIsElectricField(
-        gridContentIndex
-    );
-
-    return (
-        !positionHasObstacle &&
-        (canEnterElectricField || !positionHasElectricField)
-    );
-}
-
-// TODO fix potential bug: player cannot move because there's an obstacle in the same row
-// TODO merge rowCanBePushed and movePlayer (if that makes sense)?
-boolean rowCanBePushed(
-    int[] position,
-    int[] newPosition,
-    int[] gridDimensions,
-    int[][][] gridContent
-) {
-    if (positionIsOutsideGrid(newPosition, gridDimensions)) {
-        return false;
-    }
-
-    // TODO make function getDimensionIndex?
-    int dimensionIndex = changedDimensionIsColumn(position, newPosition)
-        ? 0
-        : 1;
-
-    int newDimension = newPosition[dimensionIndex];
-    int dimensionAmount = gridDimensions[dimensionIndex];
-    int deltaDimension = newPosition[dimensionIndex] - position[dimensionIndex];
-
-    int[] currentPosition = copyIntegerArray(position);
-
-    for (
-        int currentDimension = newDimension;
-        dimensionIsInsideGrid(currentDimension, dimensionAmount);
-        currentDimension += deltaDimension
-    ) {
-        currentPosition[dimensionIndex] = currentDimension;
-
-        if (positionIsEmpty(currentPosition, gridContent)) {
-            println("position is empty so row can be pushed");
-            println(currentPosition);
-
-            return true;
-        }
-
-        boolean isFirstMove = currentDimension == newDimension;
-
-        if (
-            dimensionIsOnEdge(currentDimension, dimensionAmount) ||
-            !canMoveToPosition(
-                currentPosition,
-                gridDimensions,
-                gridContent,
-                isFirstMove
-            )
-        ) {
-            println("row cannot be pushed");
-            println(currentPosition);
-
-            return false;
-        }
-    }
-
-    return true;
+int getOppositeDimensionIndex(int dimensionIndex) {
+    return dimensionIndex == 0 ? 1 : 0;
 }
 
 boolean positionsAreInSameRow(
@@ -212,16 +102,29 @@ boolean positionIsInPushedRow(
     );
 }
 
+int[] copyPositionWithDimension(
+    int[] position,
+    int dimension,
+    int dimensionIndex
+) {
+    int[] newPosition = copyIntegerArray(position);
+    newPosition[dimensionIndex] = dimension;
+
+    return newPosition;
+}
+
 int[] getPositionPushedBy(
     int[] position,
     int dimension,
     int dimensionIndex,
     int deltaDimension
 ) {
-    int[] positionPushedBy = copyIntegerArray(position);
-    positionPushedBy[dimensionIndex] = dimension - deltaDimension;
-
-    return positionPushedBy;
+    int dimensionPushedBy = dimension - deltaDimension;
+    return copyPositionWithDimension(
+        position,
+        dimensionPushedBy,
+        dimensionIndex
+    );
 }
 
 boolean subrowContainsEmptyPosition(
@@ -251,18 +154,24 @@ boolean subrowContainsEmptyPosition(
     return false;
 }
 
-int[][][] movePlayer(int[] position, int[] newPosition, int[][][] gridContent) {
-    println("moving player from position");
-    println(position);
-    println("to position");
-    println(newPosition);
+boolean dimensionIsOutsideGrid(
+    int dimension,
+    int dimensionIndex,
+    int[] gridDimensions
+) {
+    return dimension < 0 || dimension >= gridDimensions[dimensionIndex];
+}
 
+int[][][] tryToMovePlayer(
+    int[] position, 
+    int[] newPosition, 
+    int[] gridDimensions,
+    int[][][] gridContent
+) {
     int[][][] newGridContent = copyGridContent(gridContent);
 
-    int dimensionIndex = changedDimensionIsColumn(position, newPosition)
-        ? 0
-        : 1;
-    int oppositeDimensionIndex = dimensionIndex == 0 ? 1 : 0;
+    int dimensionIndex = getDimensionIndex(position, newPosition);
+    int oppositeDimensionIndex = getOppositeDimensionIndex(dimensionIndex);
 
     int deltaDimension = newPosition[dimensionIndex] - position[dimensionIndex];
 
@@ -284,18 +193,18 @@ int[][][] movePlayer(int[] position, int[] newPosition, int[][][] gridContent) {
             int[] currentPosition = positions[positionIndex];
 
             if (
-                positionsAreInSameRow(
+                !positionsAreInSameRow(
                     currentPosition,
                     newPosition,
                     oppositeDimensionIndex
-                ) &&
-                positionIsInPushedRow(
+                ) ||
+                !positionIsInPushedRow(
                     currentPosition,
                     position,
                     dimensionIndex,
                     deltaDimension
-                ) &&
-                !subrowContainsEmptyPosition(
+                ) ||
+                subrowContainsEmptyPosition(
                     currentPosition,
                     position,
                     dimensionIndex,
@@ -303,8 +212,35 @@ int[][][] movePlayer(int[] position, int[] newPosition, int[][][] gridContent) {
                     gridContent
                 )
             ) {
-                currentPosition[dimensionIndex] += deltaDimension;
+                continue;
             }
+
+            int newDimension = currentPosition[dimensionIndex] + deltaDimension;
+
+            if (
+                dimensionIsOutsideGrid(
+                    newDimension,
+                    dimensionIndex,
+                    gridDimensions
+                )
+            ) {
+                return gridContent;
+            }
+
+            int[] newCurrentPosition = copyPositionWithDimension(
+                currentPosition,
+                newDimension,
+                dimensionIndex
+            );
+
+            if (
+                positionHasObstacle(newCurrentPosition, gridContent) ||
+                positionHasElectricField(newCurrentPosition, gridContent)
+            ) {
+                return gridContent;
+            }
+
+            newGridContent[gridContentIndex][positionIndex] = newCurrentPosition;
         }
     }
 

@@ -45,21 +45,12 @@ void keyPressed() {
     int[] playerPosition = getPlayerPosition(playerIndex, gridContent);
     int[] newPlayerPosition = getNewPlayerPosition(keyCode, playerPosition);
 
-    if (
-        !rowCanBePushed(
-            playerPosition,
-            newPlayerPosition,
-            gridDimensions,
-            gridContent
-        )
-    ) {
-        println("player cannot be moved (row cannot be pushed)");
-        println(newPlayerPosition);
-
-        return;
-    }
-
-    gridContent = movePlayer(playerPosition, newPlayerPosition, gridContent);
+    gridContent = tryToMovePlayer(
+        playerPosition,
+        newPlayerPosition,
+        gridDimensions,
+        gridContent
+    );
 
     redraw();
 }

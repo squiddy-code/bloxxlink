@@ -61,3 +61,17 @@ int[] copyIntegerArray(int[] array) {
 
     return arrayCopy;
 }
+
+boolean equalIntegerArrays(int[] array1, int[] array2) {
+    if (array1.length != array2.length) {
+        return false;
+    }
+
+    for (int index = 0; index < array1.length; index++) {
+        if (array1[index] != array2[index]) {
+            return false;
+        }
+    }
+
+    return true;
+}
