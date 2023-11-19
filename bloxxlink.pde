@@ -37,12 +37,12 @@ void draw() {
 }
 
 void keyPressed() {
-    Integer playerNumber = getPlayerNumberByKeyCode(keyCode);
-    if (playerNumber == null) {
+    Integer playerIndex = getPlayerIndexByKeyCode(keyCode);
+    if (playerIndex == null) {
         return;
     }
 
-    int[] playerPosition = getPlayerPosition(playerNumber, gridContent);
+    int[] playerPosition = getPlayerPosition(playerIndex, gridContent);
     int[] newPlayerPosition = getNewPlayerPosition(keyCode, playerPosition);
 
     if (
@@ -59,12 +59,7 @@ void keyPressed() {
         return;
     }
 
-    gridContent = movePlayer(
-        playerPosition,
-        newPlayerPosition,
-        gridDimensions,
-        gridContent
-    );
+    gridContent = movePlayer(playerPosition, newPlayerPosition, gridContent);
 
     redraw();
 }

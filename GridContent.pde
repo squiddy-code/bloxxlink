@@ -42,9 +42,9 @@ int[][][] addEmptyArrayToGridContent(int[][][] gridContent) {
     return appendTo3DArray(gridContent, emptyArray);
 }
 
-int[] getPlayerPosition(int playerNumber, int[][][] gridContent) {
+int[] getPlayerPosition(int playerIndex, int[][][] gridContent) {
     int[][] playersPositions = gridContent[2];
-    return playersPositions[playerNumber - 1];
+    return playersPositions[playerIndex];
 }
 
 boolean gridContentIndexIsObstacle(int gridContentIndex) {

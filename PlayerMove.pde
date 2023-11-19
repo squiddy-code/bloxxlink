@@ -1,4 +1,4 @@
-Integer getPlayerNumberByKeyCode(int keyCode) {
+Integer getPlayerIndexByKeyCode(int keyCode) {
     int[] player1KeyCodes = {
         87, // w
         65, // a
@@ -20,7 +20,7 @@ Integer getPlayerNumberByKeyCode(int keyCode) {
         return null;
     }
 
-    return isPlayer1KeyCode ? 1 : 2;
+    return isPlayer1KeyCode ? 0 : 1;
 }
 
 int[] getNewPlayerPosition(int keyCode, int[] currentPosition) {
@@ -130,6 +130,7 @@ boolean canMoveToPosition(
 }
 
 // TODO fix potential bug: player cannot move because there's an obstacle in the same row
+// TODO merge rowCanBePushed and movePlayer (if that makes sense)?
 boolean rowCanBePushed(
     int[] position,
     int[] newPosition,
@@ -186,20 +187,78 @@ boolean rowCanBePushed(
     return true;
 }
 
-int[][][] movePlayer(
+boolean positionsAreInSameRow(
+    int[] position1,
+    int[] position2,
+    int oppositeDimensionIndex
+) {
+    return (
+        position1[oppositeDimensionIndex] == position2[oppositeDimensionIndex]
+    );
+}
+
+boolean positionIsInPushedRow(
     int[] position,
-    int[] newPosition,
-    int[] gridDimensions,
+    int[] pushStartPosition,
+    int dimensionIndex,
+    int deltaDimension
+) {
+    int dimension = position[dimensionIndex];
+    int pushStartDimension = pushStartPosition[dimensionIndex];
+
+    return (
+        (deltaDimension < 0 && dimension <= pushStartDimension) ||
+        (deltaDimension > 0 && dimension >= pushStartDimension)
+    );
+}
+
+int[] getPositionPushedBy(
+    int[] position,
+    int dimension,
+    int dimensionIndex,
+    int deltaDimension
+) {
+    int[] positionPushedBy = copyIntegerArray(position);
+    positionPushedBy[dimensionIndex] = dimension - deltaDimension;
+
+    return positionPushedBy;
+}
+
+boolean subrowContainsEmptyPosition(
+    int[] position,
+    int[] pushStartPosition,
+    int dimensionIndex,
+    int deltaDimension,
     int[][][] gridContent
 ) {
-    println("trying to move player from position");
+    for (
+        int dimension = position[dimensionIndex];
+        dimension != pushStartPosition[dimensionIndex];
+        dimension -= deltaDimension
+    ) {
+        int[] positionPushedBy = getPositionPushedBy(
+            position,
+            dimension,
+            dimensionIndex,
+            deltaDimension
+        );
+
+        if (positionIsEmpty(positionPushedBy, gridContent)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int[][][] movePlayer(int[] position, int[] newPosition, int[][][] gridContent) {
+    println("moving player from position");
     println(position);
     println("to position");
     println(newPosition);
 
     int[][][] newGridContent = copyGridContent(gridContent);
 
-    // TODO clean this up
     int dimensionIndex = changedDimensionIsColumn(position, newPosition)
         ? 0
         : 1;
@@ -207,12 +266,15 @@ int[][][] movePlayer(
 
     int deltaDimension = newPosition[dimensionIndex] - position[dimensionIndex];
 
+    // gridContentIndex starts at 2 because indices 0 and 1 are for the
+    // obstacles and electric fields, and those cannot be moved so it doesn't
+    // make sense to include them here.
     for (
-        int gridContentIndex = 0;
+        int gridContentIndex = 2;
         gridContentIndex < gridContent.length;
         gridContentIndex++
     ) {
-        int[][] positions = gridContent[gridContentIndex];
+        int[][] positions = newGridContent[gridContentIndex];
 
         for (
             int positionIndex = 0;
@@ -220,38 +282,29 @@ int[][][] movePlayer(
             positionIndex++
         ) {
             int[] currentPosition = positions[positionIndex];
-            int[] newCurrentPosition = copyIntegerArray(currentPosition);
-    
-            boolean isSameOppositeDimension =
-                currentPosition[oppositeDimensionIndex] ==
-                newPosition[oppositeDimensionIndex];
-
-            int currentDeltaDimension =
-                currentPosition[dimensionIndex] - position[dimensionIndex];
-
-            int[] previousPosition = copyIntegerArray(currentPosition);
-            previousPosition[dimensionIndex] -= deltaDimension;
 
             if (
-                isSameOppositeDimension &&
-                currentDeltaDimension * deltaDimension >= 0 &&
-                (
-                    !positionIsEmpty(previousPosition, gridContent) ||
-                    positionHasPlayer(currentPosition, gridContent)
+                positionsAreInSameRow(
+                    currentPosition,
+                    newPosition,
+                    oppositeDimensionIndex
+                ) &&
+                positionIsInPushedRow(
+                    currentPosition,
+                    position,
+                    dimensionIndex,
+                    deltaDimension
+                ) &&
+                !subrowContainsEmptyPosition(
+                    currentPosition,
+                    position,
+                    dimensionIndex,
+                    deltaDimension,
+                    gridContent
                 )
             ) {
-                println("changing position from");
-                println(newCurrentPosition);
-
-                newCurrentPosition[dimensionIndex] += deltaDimension;
-
-                println("to");
-                println(newCurrentPosition);
+                currentPosition[dimensionIndex] += deltaDimension;
             }
-
-            newGridContent[gridContentIndex][
-                positionIndex
-            ] = newCurrentPosition;
         }
     }
 
