@@ -21,7 +21,7 @@ int[] gridDimensions = {
 };
 
 int[] gridContentAmounts = {
-    0, // # of obstacles
+    4, // # of obstacles
     2, // # of players
     8  // # of blocks per player
 };
