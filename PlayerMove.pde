@@ -113,6 +113,7 @@ int[] copyPositionWithDimension(
     return newPosition;
 }
 
+// TODO remove dimension parameter since the dimension can be obtained with position[dimensionIndex]
 int[] getPositionPushedBy(
     int[] position,
     int dimension,
@@ -192,24 +193,38 @@ int[][][] tryToMovePlayer(
         ) {
             int[] currentPosition = positions[positionIndex];
 
+            // TODO clean this up
             if (
                 !positionsAreInSameRow(
                     currentPosition,
                     newPosition,
                     oppositeDimensionIndex
                 ) ||
-                !positionIsInPushedRow(
-                    currentPosition,
-                    position,
-                    dimensionIndex,
-                    deltaDimension
-                ) ||
-                subrowContainsEmptyPosition(
-                    currentPosition,
-                    position,
-                    dimensionIndex,
-                    deltaDimension,
-                    gridContent
+                (
+                    (
+                        !positionIsInPushedRow(
+                            currentPosition,
+                            position,
+                            dimensionIndex,
+                            deltaDimension
+                        ) ||
+                        subrowContainsEmptyPosition(
+                            currentPosition,
+                            position,
+                            dimensionIndex,
+                            deltaDimension,
+                            gridContent
+                        )
+                    ) &&
+                    !equalIntArrays(
+                        currentPosition,
+                        getPositionPushedBy(
+                            position,
+                            position[dimensionIndex],
+                            dimensionIndex,
+                            deltaDimension
+                        )
+                    )
                 )
             ) {
                 continue;
