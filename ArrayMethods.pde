@@ -40,11 +40,11 @@ int[][] concat2DArray(int[][] array1, int[][] array2) {
     return concatenatedArray;
 }
 
-boolean integerIsInArray(int integer, int[] array) {
-    for (int integerIndex = 0; integerIndex < array.length; integerIndex++) {
-        int currentInteger = array[integerIndex];
+boolean intIsInArray(int _int, int[] array) {
+    for (int index = 0; index < array.length; index++) {
+        int currentInt = array[index];
 
-        if (currentInteger == integer) {
+        if (currentInt == _int) {
             return true;
         }
     }
@@ -52,7 +52,7 @@ boolean integerIsInArray(int integer, int[] array) {
     return false;
 }
 
-int[] copyIntegerArray(int[] array) {
+int[] copyIntArray(int[] array) {
     int[] arrayCopy = new int[array.length];
 
     for (int index = 0; index < array.length; index++) {
@@ -62,7 +62,7 @@ int[] copyIntegerArray(int[] array) {
     return arrayCopy;
 }
 
-boolean equalIntegerArrays(int[] array1, int[] array2) {
+boolean equalIntArrays(int[] array1, int[] array2) {
     if (array1.length != array2.length) {
         return false;
     }

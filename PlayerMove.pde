@@ -13,8 +13,8 @@ Integer getPlayerIndexByKeyCode(int keyCode) {
         39  // right arrow
     };
     
-    boolean isPlayer1KeyCode = integerIsInArray(keyCode, player1KeyCodes);
-    boolean isPlayer2KeyCode = integerIsInArray(keyCode, player2KeyCodes);
+    boolean isPlayer1KeyCode = intIsInArray(keyCode, player1KeyCodes);
+    boolean isPlayer2KeyCode = intIsInArray(keyCode, player2KeyCodes);
 
     if (!isPlayer1KeyCode && !isPlayer2KeyCode) {
         return null;
@@ -107,7 +107,7 @@ int[] copyPositionWithDimension(
     int dimension,
     int dimensionIndex
 ) {
-    int[] newPosition = copyIntegerArray(position);
+    int[] newPosition = copyIntArray(position);
     newPosition[dimensionIndex] = dimension;
 
     return newPosition;

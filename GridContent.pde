@@ -65,7 +65,7 @@ int[][][] copyGridContent(int[][][] gridContent) {
         ) {
             int[] position = positions[positionIndex];
             gridContentCopy[gridContentIndex][positionIndex] =
-                copyIntegerArray(position);
+                copyIntArray(position);
         }
     }
 
@@ -80,7 +80,7 @@ boolean positionInPositions(int[] position, int[][] positions) {
     ) {
         int[] currentPosition = positions[positionIndex];
 
-        if (equalIntegerArrays(currentPosition, position)) {
+        if (equalIntArrays(currentPosition, position)) {
             return true;
         }
     }
