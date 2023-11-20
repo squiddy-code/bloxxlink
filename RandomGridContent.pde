@@ -83,13 +83,12 @@ int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
         ) {
             int currentColumn = column + columnOffset;
             boolean currentPositionIsPosition =
-                columnOffset == 0
-                && rowOffset == 0;
+                columnOffset == 0 && rowOffset == 0;
             
             if (
-                currentPositionIsPosition
-                || currentColumn < 0
-                || currentColumn >= columnAmount
+                currentPositionIsPosition ||
+                currentColumn < 0 ||
+                currentColumn >= columnAmount
             ) {
                 continue;
             }
