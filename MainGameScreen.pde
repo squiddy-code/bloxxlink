@@ -49,7 +49,11 @@ int[] getMainGameScreenCoordinates(
     return new int[] {x1, y1, x2, y2};
 }
 
-void drawMainGameScreen(int[] gridDimensions, int[][][] gridContent) {
+void drawMainGameScreen(
+    int[] gridDimensions,
+    int[][][] gridContent,
+    int[] scores
+) {
     int[] size = {width, height};
     int[] margin = {
         60, // x
@@ -79,7 +83,7 @@ void drawMainGameScreen(int[] gridDimensions, int[][][] gridContent) {
     drawScoreCounter(
         coordinates,
         scoreCounterTextSize,
-        new int[] {1, 2}
+        scores
     );
 
     coordinates = getGridCoordinates(coordinates, scoreCounterHeight);

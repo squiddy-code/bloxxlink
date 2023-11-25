@@ -31,9 +31,14 @@ int[][][] gridContent = getRandomGridContent(
     gridContentAmounts
 );
 
+int[] scores = {
+    100, // player 1
+    100  // player 2
+};
+
 void draw() {
     clearScreen();
-    drawMainGameScreen(gridDimensions, gridContent);
+    drawMainGameScreen(gridDimensions, gridContent, scores);
 }
 
 void keyPressed() {
@@ -45,12 +50,19 @@ void keyPressed() {
     int[] playerPosition = getPlayerPosition(playerIndex, gridContent);
     int[] newPlayerPosition = getNewPlayerPosition(keyCode, playerPosition);
 
-    gridContent = tryToMovePlayer(
+    int[][][] newGridContent = tryToMovePlayer(
         playerPosition,
         newPlayerPosition,
         gridDimensions,
         gridContent
     );
 
+    if (equalGridContents(gridContent, newGridContent)) {
+        return;
+    }
+
+    scores[playerIndex] -= 1;
+
+    gridContent = newGridContent;
     redraw();
 }

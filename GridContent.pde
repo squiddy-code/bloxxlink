@@ -101,3 +101,37 @@ boolean positionHasElectricField(int[] position, int[][][] gridContent) {
 
     return positionInPositions(position, electricFieldPositions);
 }
+
+boolean equalGridContents(int[][][] gridContent1, int[][][] gridContent2) {
+    if (gridContent1.length != gridContent2.length) {
+        return false;
+    }
+
+    for (
+        int gridContentIndex = 0;
+        gridContentIndex < gridContent1.length;
+        gridContentIndex++
+    ) {
+        int[][] positions1 = gridContent1[gridContentIndex];
+        int[][] positions2 = gridContent2[gridContentIndex];
+
+        if (positions1.length != positions2.length) {
+            return false;
+        }
+
+        for (
+            int positionIndex = 0;
+            positionIndex < positions1.length;
+            positionIndex++
+        ) {
+            int[] position1 = positions1[positionIndex];
+            int[] position2 = positions2[positionIndex];
+
+            if (!equalIntArrays(position1, position2)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
