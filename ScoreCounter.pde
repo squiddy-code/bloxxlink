@@ -10,7 +10,7 @@ void drawPlayer1ScoreText(int score, int x1, int y) {
 void drawPlayer2ScoreText(int score, int x2, int y) {
     int playerNumber = 2;
 
-    String scoreText = getPlayerScoreText(score, playerNumber);
+    String scoreText = getPlayerScoreText(playerNumber, score);
     float scoreTextWidth = textWidth(scoreText);
     int x = x2 - ceil(scoreTextWidth);
 
