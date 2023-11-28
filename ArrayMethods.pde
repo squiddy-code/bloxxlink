@@ -22,15 +22,49 @@ int[][][] appendTo3DArray(int[][][] array, int[][] item) {
     return newArray;
 }
 
-int[][] concat2DArray(int[][] array1, int[][] array2) {
-    int[][] concatenatedArray = new int[array1.length + array2.length][];
-
-    for (int array1Index = 0; array1Index < array1.length; array1Index++) {
-        concatenatedArray[array1Index] = array1[array1Index];
+boolean equalIntArrays(int[] array1, int[] array2) {
+    if (array1.length != array2.length) {
+        return false;
     }
 
+    for (int index = 0; index < array1.length; index++) {
+        if (array1[index] != array2[index]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+boolean arrayIsIn2DArray(int[] array, int[][] _2DArray) {
+    for (
+        int _2DArrayIndex = 0;
+        _2DArrayIndex < _2DArray.length;
+        _2DArrayIndex++
+    ) {
+        int[] currentArray = _2DArray[_2DArrayIndex];
+
+        if (equalIntArrays(currentArray, array)) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+int[][] concat2DArray(
+    int[][] array1,
+    int[][] array2,
+    boolean preventDuplicates
+) {
+    int[][] concatenatedArray = array1;
+
     for (int array2Index = 0; array2Index < array2.length; array2Index++) {
-        concatenatedArray[array1.length + array2Index] = array2[array2Index];
+        int[] array2Item = array2[array2Index];
+
+        if (!preventDuplicates || !arrayIsIn2DArray(array2Item, array1)) {
+            concatenatedArray = appendTo2DArray(concatenatedArray, array2Item);
+        }
     }
 
     return concatenatedArray;
@@ -56,18 +90,4 @@ int[] copyIntArray(int[] array) {
     }
 
     return arrayCopy;
-}
-
-boolean equalIntArrays(int[] array1, int[] array2) {
-    if (array1.length != array2.length) {
-        return false;
-    }
-
-    for (int index = 0; index < array1.length; index++) {
-        if (array1[index] != array2[index]) {
-            return false;
-        }
-    }
-
-    return true;
 }

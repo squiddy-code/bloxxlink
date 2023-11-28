@@ -261,3 +261,47 @@ int[][][] tryToMovePlayer(
 
     return newGridContent;
 }
+
+boolean playerHasWon(
+    int playerIndex,
+    int[] gridDimensions,
+    int[][][] gridContent
+) {
+    int playerBlocksIndex = 3 + playerIndex;
+    int[][] blocksPositions = gridContent[playerBlocksIndex];
+
+    int[][] connectedBlocksPositions = {blocksPositions[0]};
+
+    for (
+        int connectedBlocksPositionsIndex = 0;
+        connectedBlocksPositionsIndex < connectedBlocksPositions.length;
+        connectedBlocksPositionsIndex++
+    ) {
+        int[] currentPosition = 
+            connectedBlocksPositions[connectedBlocksPositionsIndex];
+
+        int[][] adjacentPositions = getAdjacentPositions(
+            currentPosition,
+            gridDimensions,
+            playerBlocksIndex,
+            false
+        );
+
+        connectedBlocksPositions =
+            concat2DArray(connectedBlocksPositions, adjacentPositions, true);
+    }
+
+    return connectedBlocksPositions.length == blocksPositions.length;
+}
+
+Integer getWinnerIndex(int[] gridDimensions, int[][][] gridContent) {
+    int playerAmount = gridContent[2].length;
+
+    for (int playerIndex = 0; playerIndex < playerAmount; playerIndex++) {
+        if (playerHasWon(playerIndex, gridDimensions, gridContent)) {
+            return playerIndex;
+        }        
+    }
+
+    return null;
+}

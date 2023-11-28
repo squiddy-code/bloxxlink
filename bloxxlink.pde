@@ -62,7 +62,9 @@ void keyPressed() {
     }
 
     scores[playerIndex] -= 1;
-
     gridContent = newGridContent;
+
+    Integer winnerIndex = getWinnerIndex(gridDimensions, gridContent);
+
     redraw();
 }

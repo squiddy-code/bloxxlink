@@ -58,7 +58,12 @@ int[][][] addRandomPositionsToGridContent(
     return gridContent;
 }
 
-int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
+int[][] getAdjacentPositions(
+    int[] position,
+    int[] gridDimensions,
+    Integer gridContentIndex,
+    boolean includeCorners
+) {
     int[][] adjacentPositions = {};
 
     int column = position[0];
@@ -81,6 +86,10 @@ int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
             columnOffset <= adjacentColumnOffset;
             columnOffset++
         ) {
+            if (!includeCorners && rowOffset != 0 && columnOffset != 0) {
+                continue;
+            }
+
             int currentColumn = column + columnOffset;
             boolean currentPositionIsPosition =
                 columnOffset == 0 && rowOffset == 0;
@@ -94,6 +103,14 @@ int[][] getAdjacentPositions(int[] position, int[] gridDimensions) {
             }
 
             int[] currentPosition = {currentColumn, currentRow};
+            if (
+                gridContentIndex != null &&
+                getGridContentIndexOfPosition(currentPosition, gridContent) !=
+                    gridContentIndex
+            ) {
+                continue;
+            }
+
             adjacentPositions = appendTo2DArray(
                 adjacentPositions,
                 currentPosition
@@ -119,12 +136,15 @@ int[][][] addAdjacentPositionsToGridContent(
         int[] position = positions[positionIndex];
         int[][] adjacentPositions = getAdjacentPositions(
             position,
-            gridDimensions
+            gridDimensions,
+            null,
+            true
         );
 
         allAdjacentPositions = concat2DArray(
             allAdjacentPositions,
-            adjacentPositions
+            adjacentPositions,
+            false
         );
     }
 
