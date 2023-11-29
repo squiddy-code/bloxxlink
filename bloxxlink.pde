@@ -26,19 +26,23 @@ int[] gridContentAmounts = {
     8  // # of blocks per player
 };
 
-int[][][] gridContent = getRandomGridContent(
-    gridDimensions,
-    gridContentAmounts
-);
+int[][][] gridContent;
 
 int[] scores = {
     100, // player 1
     100  // player 2
 };
 
+boolean playingGame = false;
+
 void draw() {
     clearScreen();
-    drawMainGameScreen(gridDimensions, gridContent, scores);
+
+    if (playingGame) {
+        drawMainGameScreen(gridDimensions, gridContent, scores);
+    } else {
+        drawHomeScreen();
+    }
 }
 
 void keyPressed() {
@@ -67,4 +71,65 @@ void keyPressed() {
     Integer winnerIndex = getWinnerIndex(gridDimensions, gridContent);
 
     redraw();
+}
+
+void mouseClicked() {
+    if (playingGame) {
+        return;
+    }
+
+    for (
+        int inputsCoordinatesIndex = 0;
+        inputsCoordinatesIndex < inputsCoordinates.length;
+        inputsCoordinatesIndex++
+    ) {
+        int[] inputCoordinates = inputsCoordinates[inputsCoordinatesIndex];
+
+        int inputX1 = inputCoordinates[0];
+        int inputY1 = inputCoordinates[1];
+
+        int inputX2 = inputCoordinates[2];
+        int inputY2 = inputCoordinates[3];
+
+        if (
+            mouseX > inputX1 &&
+            mouseY > inputY1 &&
+            mouseX < inputX2 &&
+            mouseY < inputY2
+        ) {
+            switch (inputsCoordinatesIndex) {
+                case 0: // player
+                    gridContentAmounts[1]++;
+                    break;
+                case 1: // player
+                    gridContentAmounts[1]--;
+                    break;
+                case 2: // block
+                    gridContentAmounts[2]++;
+                    break;
+                case 3: // block
+                    gridContentAmounts[2]--;
+                    break;
+                case 4: // obstacle
+                    gridContentAmounts[0]++;
+                    break;
+                case 5: // obstacle
+                    gridContentAmounts[0]--;
+                    break;
+                case 6:
+                    gridContent = getRandomGridContent(
+                        gridDimensions,
+                        gridContentAmounts
+                    );
+
+                    playingGame = true;
+                    break;
+                default:
+                    break;
+            }
+
+            redraw();
+            return;
+        }
+    }
 }

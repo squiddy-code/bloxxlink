@@ -1,8 +1,17 @@
+int[][] inputsCoordinates = {};
+
 void drawNumberInputRightArrow(int[] coordinates, int size) {
     int x = coordinates[0];
     int y = coordinates[1];
 
     triangle(x + size, y + size / 2, x, y, x, y + size);
+
+    int x2 = x + size;
+    int y2 = y + size;
+
+    coordinates = new int[] {x, y, x2, y2};
+
+    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
 }
 
 void drawNumberInputCounter(int value, int height, int[] coordinates) {
@@ -17,6 +26,13 @@ void drawNumberInputLeftArrow(int[] coordinates, int size) {
     int y = coordinates[1];
 
     triangle(x, y + size / 2, x + size, y, x + size, y + size);
+
+    int x2 = x + size;
+    int y2 = y + size;
+
+    coordinates = new int[] {x, y, x2, y2};
+
+    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
 }
 
 void drawNumberInput(int value, int height, int[] coordinates) {
@@ -164,6 +180,8 @@ int[] drawPlayButtonBackground(int[] coordinates) {
 
     coordinates = new int[] {x, y, x2, y2};
 
+    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
+
     return coordinates;
 }
 
@@ -237,6 +255,7 @@ void drawHomeScreen() {
         margin[1] + marginToCenter[1] + size[1]
     };
 
+    fill(WHITE);
     rect(
         coordinates[0],
         coordinates[1],
@@ -250,8 +269,16 @@ void drawHomeScreen() {
     textSize(_textSize);
 
     int[] newCoordinates = drawNumberInputsWithLabel(
-        new String[] {"Aantal spelers", "Aantal obstakels", "Aantal blokken per speler"},
-        new int[] {2, 4, 8},
+        new String[] {
+            "Aantal spelers",
+            "Aantal blokken per speler",
+            "Aantal obstakels"
+        },
+        new int[] {
+            gridContentAmounts[1],
+            gridContentAmounts[2],
+            gridContentAmounts[0]
+        },
         inputHeight,
         coordinates
     );
