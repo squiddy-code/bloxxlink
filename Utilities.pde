@@ -2,6 +2,10 @@ void clearScreen() {
     background(WHITE);
 }
 
+int subtractMarginFromLength(int length, int margin) {
+    return length - 2 * margin;
+}
+
 int[] subtractMarginFromSize(int[] size, int[] margin) {
     int width = size[0];
     int height = size[1];
@@ -15,6 +19,19 @@ int[] subtractMarginFromSize(int[] size, int[] margin) {
     };
 }
 
-int subtractMarginFromLength(int length, int margin) {
-    return length - 2 * margin;
+int getMarginToCenter(int length, int availableLength) {
+    return (availableLength - length) / 2;
+}
+
+int[] getMarginToCenterBoth(int[] size, int[] availableSize) {
+    int _width = size[0];
+    int _height = size[1];
+
+    int availableWidth = availableSize[0];
+    int availableHeight = availableSize[1];
+
+    int marginXToCenter = getMarginToCenter(_width, availableWidth);
+    int marginYToCenter = getMarginToCenter(_height, availableHeight);
+
+    return new int[] {marginXToCenter, marginYToCenter};
 }
