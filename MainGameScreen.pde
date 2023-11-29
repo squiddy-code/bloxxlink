@@ -1,3 +1,4 @@
+// TODO copy version with margin built in
 int[] getMainGameScreenCoordinates(
     int[] margin,
     int[] gridSize,
