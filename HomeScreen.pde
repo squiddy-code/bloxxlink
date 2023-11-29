@@ -159,6 +159,11 @@ int[] drawPlayButtonBackground(int[] coordinates) {
     fill(WHITE);
     rect(x, y, _width, _height);
 
+    x2 = x + _width;
+    y2 = y + _height;
+
+    coordinates = new int[] {x, y, x2, y2};
+
     return coordinates;
 }
 
