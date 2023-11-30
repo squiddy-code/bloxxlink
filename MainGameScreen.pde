@@ -1,4 +1,3 @@
-// TODO copy version with margin built in
 int[] getMainGameScreenCoordinates(
     int[] margin,
     int[] gridSize,
@@ -11,8 +10,8 @@ int[] getMainGameScreenCoordinates(
     int gridHeight = gridSize[1];
 
     int[] size = {
-        marginX + gridWidth + marginX,                      // width
-        marginY + scoreCounterHeight + gridHeight + marginY // height
+        gridWidth,                      // width
+        scoreCounterHeight + gridHeight // height
     };
 
     int[] availableSize = {
@@ -20,16 +19,16 @@ int[] getMainGameScreenCoordinates(
         height
     };
 
-    int[] marginToCenter = getMarginToCenterBoth(size, availableSize);
+    int[] marginToCenter = addMarginToCenterBoth(size, availableSize, margin);
 
     int marginToCenterX = marginToCenter[0];
     int marginToCenterY = marginToCenter[1];
 
-    int x1 = marginX + marginToCenterX;
-    int y1 = marginY + marginToCenterY;
+    int x1 = marginToCenterX;
+    int y1 = marginToCenterY;
 
-    int x2 = width - marginX - marginToCenterX;
-    int y2 = height - marginY - marginToCenterY;
+    int x2 = width - marginToCenterX;
+    int y2 = height - marginToCenterY;
 
     return new int[] {x1, y1, x2, y2};
 }
@@ -39,19 +38,25 @@ void drawMainGameScreen(
     int[][][] gridContent,
     int[] scores
 ) {
-    int[] size = {width, height};
+    int marginX = 60;
+    int marginY = 60;
+
     int[] margin = {
-        60, // x
-        60  // y
+        marginX,
+        marginY
     };
 
-    size = subtractMarginFromSize(size, margin);
+    int availableWidth = width - marginX * 2;
+    int availableHeight = height - marginY * 2;
+
+    int[] availableSize = {availableWidth, availableHeight};
 
     int scoreCounterTextSize = 30;
     int scoreCounterMarginBottom = 20;
     int scoreCounterHeight = scoreCounterTextSize + scoreCounterMarginBottom;
 
-    int[] availableGridSize = getAvailableGridSize(size, scoreCounterHeight);
+    int[] availableGridSize =
+        getAvailableGridSize(availableSize, scoreCounterHeight);
     int cellSize = getGridCellSize(
         availableGridSize,
         gridDimensions

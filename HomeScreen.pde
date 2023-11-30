@@ -225,34 +225,25 @@ void drawPlayButton(int _textSize, int[] coordinates) {
 }
 
 void drawHomeScreen() {
-    int[] margin = {
-        60, // x
-        60  // y
-    };
+    int _width = 400;
+    int _height = 400;
 
-    int[] size = {
-        400,
-        400
-    };
+    int[] size = {_width, _height};
+    int[] availableSize = {width, height};
 
-    int[] sizeWithMargin = new int[] {
-        margin[0] + size[0] + margin[0], // width
-        margin[1] + size[1] + margin[1]  // height
-    };
+    int marginX = 60;
+    int marginY = 60;
 
-    int[] availableSize = {
-        width,
-        height
-    };
+    int[] margin = {marginX, marginY};
 
     int[] marginToCenter =
-        getMarginToCenterBoth(sizeWithMargin, availableSize);
+        addMarginToCenterBoth(size, availableSize, margin);
 
     int[] coordinates = {
-        margin[0] + marginToCenter[0],
-        margin[1] + marginToCenter[1],
-        margin[0] + marginToCenter[0] + size[0],
-        margin[1] + marginToCenter[1] + size[1]
+        marginToCenter[0],
+        marginToCenter[1],
+        marginToCenter[0] + size[0],
+        marginToCenter[1] + size[1]
     };
 
     fill(WHITE);
