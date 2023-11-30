@@ -1,9 +1,13 @@
-int[] getAvailableGridSize(int[] mainGameScreenSize, int scoreCounterHeight) {
-    int mainGameScreenWidth = mainGameScreenSize[0];
-    int mainGameScreenHeight = mainGameScreenSize[1];
+int[] getAvailableGridSize(
+    int[] availableMainGameScreenSize,
+    int scoreCounterHeight
+) {
+    int availableMainGameScreenWidth = availableMainGameScreenSize[0];
+    int availableMainGameScreenHeight = availableMainGameScreenSize[1];
 
-    int availableGridWidth = mainGameScreenWidth;
-    int availableGridHeight = mainGameScreenHeight - scoreCounterHeight;
+    int availableGridWidth = availableMainGameScreenWidth;
+    int availableGridHeight = 
+        availableMainGameScreenHeight - scoreCounterHeight;
 
     return new int[] {availableGridWidth, availableGridHeight};
 }
