@@ -30,8 +30,8 @@ int[] getMarginToCenterBoth(int[] size, int[] availableSize) {
     int availableWidth = availableSize[0];
     int availableHeight = availableSize[1];
 
-    int marginXToCenter = getMarginToCenter(_width, availableWidth);
-    int marginYToCenter = getMarginToCenter(_height, availableHeight);
+    int marginToCenterX = getMarginToCenter(_width, availableWidth);
+    int marginToCenterY = getMarginToCenter(_height, availableHeight);
 
-    return new int[] {marginXToCenter, marginYToCenter};
+    return new int[] {marginToCenterX, marginToCenterY};
 }

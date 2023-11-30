@@ -22,14 +22,14 @@ int[] getMainGameScreenCoordinates(
 
     int[] marginToCenter = getMarginToCenterBoth(size, availableSize);
 
-    int marginXToCenter = marginToCenter[0];
-    int marginYToCenter = marginToCenter[1];
+    int marginToCenterX = marginToCenter[0];
+    int marginToCenterY = marginToCenter[1];
 
-    int x1 = marginX + marginXToCenter;
-    int y1 = marginY + marginYToCenter;
+    int x1 = marginX + marginToCenterX;
+    int y1 = marginY + marginToCenterY;
 
-    int x2 = width - marginX - marginXToCenter;
-    int y2 = height - marginY - marginYToCenter;
+    int x2 = width - marginX - marginToCenterX;
+    int y2 = height - marginY - marginToCenterY;
 
     return new int[] {x1, y1, x2, y2};
 }
