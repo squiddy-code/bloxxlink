@@ -57,10 +57,7 @@ int[] addMarginToCenterBoth(int[] size, int[] availableSize, int[] margin) {
     marginX += marginToCenterX;
     marginY += marginToCenterY;
 
-    margin = new int[] {
-        marginX,
-        marginY
-    };
+    margin = new int[] {marginX, marginY};
 
     return margin;
 }
