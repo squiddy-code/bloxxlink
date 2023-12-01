@@ -6,6 +6,19 @@ int subtractMarginFromLength(int length, int margin) {
     return length - 2 * margin;
 }
 
+int[] subtractMarginFromSize(int[] size, int[] margin) {
+    int width = size[0];
+    int height = size[1];
+
+    int marginX = margin[0];
+    int marginY = margin[1];
+
+    width = subtractMarginFromLength(width, marginX);
+    height = subtractMarginFromLength(height, marginY);
+
+    return new int[] {width, height};
+}
+
 int getMarginToCenter(int length, int availableLength) {
     return (availableLength - length) / 2;
 }

@@ -46,10 +46,9 @@ void drawMainGameScreen(
         marginY
     };
 
-    int availableWidth = width - marginX * 2;
-    int availableHeight = height - marginY * 2;
+    int[] fullGameScreenSize = {width, height};
 
-    int[] availableSize = {availableWidth, availableHeight};
+    int[] availableSize = subtractMarginFromSize(fullGameScreenSize, margin);
 
     int scoreCounterTextSize = 30;
     int scoreCounterMarginBottom = 20;
