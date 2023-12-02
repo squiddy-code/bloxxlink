@@ -25,21 +25,18 @@ void drawMainGameScreen(
     int marginX = 60;
     int marginY = 60;
 
-    int[] margin = {
-        marginX,
-        marginY
-    };
-
+    int[] margin = {marginX, marginY};
     int[] fullGameScreenSize = {width, height};
 
     int[] availableSize = subtractMarginFromSize(fullGameScreenSize, margin);
 
     int scoreCounterTextSize = 30;
-    int scoreCounterMarginBottom = 20;
-    int scoreCounterHeight = scoreCounterTextSize + scoreCounterMarginBottom;
+    int scoreCounterHeight = getScoreCounterHeight(scoreCounterTextSize);
 
-    int[] availableGridSize =
-        getAvailableGridSize(availableSize, scoreCounterHeight);
+    int[] availableGridSize = getAvailableGridSize(
+        availableSize,
+        scoreCounterHeight
+    );
     int cellSize = getGridCellSize(
         availableGridSize,
         gridDimensions

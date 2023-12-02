@@ -1,3 +1,8 @@
+int getScoreCounterHeight(int textSize) {
+    int marginBottom = 20;
+    return textSize + scoreCounterMarginBottom;
+}
+
 String getPlayerScoreText(int playerNumber, int score) {
     return "Speler " + playerNumber + ": " + score;
 }
