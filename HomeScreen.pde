@@ -225,38 +225,24 @@ void drawPlayButton(int _textSize, int[] coordinates) {
 }
 
 void drawHomeScreen() {
-    int _width = 400;
-    int _height = 400;
+    int width = 400;
+    int height = 400;
 
-    int[] size = {_width, _height};
-    int[] availableSize = {width, height};
+    int[] size = {width, height};
 
     int marginX = 60;
     int marginY = 60;
 
     int[] margin = {marginX, marginY};
 
-    int[] marginToCenter =
-        addMarginToCenterBoth(size, availableSize, margin);
-
-    int[] coordinates = {
-        marginToCenter[0],
-        marginToCenter[1],
-        marginToCenter[0] + size[0],
-        marginToCenter[1] + size[1]
-    };
+    int[] coordinates = centerInFullScreen(size, margin);
 
     fill(WHITE);
-    rect(
-        coordinates[0],
-        coordinates[1],
-        coordinates[2] - coordinates[0],
-        coordinates[3] - coordinates[1]
-    );
+    drawRectangle(coordinates);
 
     int inputHeight = 16;
-
     int _textSize = inputHeight;
+
     textSize(_textSize);
 
     int[] newCoordinates = drawNumberInputsWithLabel(
