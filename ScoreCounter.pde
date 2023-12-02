@@ -1,6 +1,6 @@
 int getScoreCounterHeight(int textSize) {
     int marginBottom = 20;
-    return textSize + scoreCounterMarginBottom;
+    return textSize + marginBottom;
 }
 
 String getPlayerScoreText(int playerNumber, int score) {
@@ -22,15 +22,15 @@ void drawPlayer2ScoreText(int score, int x2, int y) {
     text(scoreText, x, y);
 }
 
-void drawScoreCounter(int[] coordinates, int textSize, int[] scores) {
+void drawScoreCounter(int[] coordinates, int _textSize, int[] scores) {
     fill(BLACK);
-    textSize(textSize);
+    textSize(_textSize);
 
     int x1 = coordinates[0];
     int y1 = coordinates[1];
     int x2 = coordinates[2];
 
-    int playerScoreTextY = y1 + textSize;
+    int playerScoreTextY = y1 + _textSize;
 
     int player1Score = scores[0];
     int player2Score = scores[1];
