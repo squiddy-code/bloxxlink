@@ -1,0 +1,3 @@
+void clearScreen() {
+    background(WHITE);
+}
