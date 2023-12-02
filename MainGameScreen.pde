@@ -1,36 +1,20 @@
+int[] getMainGameScreenSize(int[] gridSize, int scoreCounterHeight) {
+    int gridWidth = gridSize[0];
+    int gridHeight = gridSize[1];
+
+    int width = gridWidth;
+    int height = scoreCounterHeight + gridHeight;
+
+    return new int[] {width, height};
+}
+
 int[] getMainGameScreenCoordinates(
     int[] margin,
     int[] gridSize,
     int scoreCounterHeight
 ) {
-    int marginX = margin[0];
-    int marginY = margin[1];
-
-    int gridWidth = gridSize[0];
-    int gridHeight = gridSize[1];
-
-    int[] size = {
-        gridWidth,                      // width
-        scoreCounterHeight + gridHeight // height
-    };
-
-    int[] availableSize = {
-        width,
-        height
-    };
-
-    int[] marginToCenter = addMarginToCenterBoth(size, availableSize, margin);
-
-    int marginToCenterX = marginToCenter[0];
-    int marginToCenterY = marginToCenter[1];
-
-    int x1 = marginToCenterX;
-    int y1 = marginToCenterY;
-
-    int x2 = width - marginToCenterX;
-    int y2 = height - marginToCenterY;
-
-    return new int[] {x1, y1, x2, y2};
+    int[] size = getMainGameScreenSize(gridSize, scoreCounterHeight);
+    return centerInFullScreen(size, margin);
 }
 
 void drawMainGameScreen(
