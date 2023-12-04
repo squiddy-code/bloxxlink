@@ -1,69 +1,15 @@
 int[][] inputsCoordinates = {};
 
-void drawNumberInputRightArrow(int[] coordinates, int size) {
-    int x = coordinates[0];
-    int y = coordinates[1];
+int[] getNumberInputsSize(
+    int availableWidth,
+    int inputAmount,
+    int inputHeight,
+    int inputMarginY
+) {
+    int width = availableWidth;
+    int height = inputAmount * inputHeight + (inputAmount - 1) * inputMarginY;
 
-    triangle(x + size, y + size / 2, x, y, x, y + size);
-
-    int x2 = x + size;
-    int y2 = y + size;
-
-    coordinates = new int[] {x, y, x2, y2};
-
-    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
-}
-
-void drawNumberInputCounter(int value, int height, int[] coordinates) {
-    int x = coordinates[0];
-    int y = coordinates[1];
-
-    text(value, x, y + height);
-}
-
-void drawNumberInputLeftArrow(int[] coordinates, int size) {
-    int x = coordinates[0];
-    int y = coordinates[1];
-
-    triangle(x, y + size / 2, x + size, y, x + size, y + size);
-
-    int x2 = x + size;
-    int y2 = y + size;
-
-    coordinates = new int[] {x, y, x2, y2};
-
-    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
-}
-
-void drawNumberInput(int value, int height, int[] coordinates) {
-    int arrowSize = height;
-
-    int x1 = coordinates[0];
-    int y1 = coordinates[1];
-
-    int x2 = coordinates[2];
-    int y2 = coordinates[3];
-
-    int x = x2 - arrowSize;
-    int y = y1;
-
-    coordinates = new int[] {x, y};
-
-    drawNumberInputRightArrow(coordinates, arrowSize);
-
-    int numberInputMarginX = 6;
-
-    x -= textWidth(str(value)) + numberInputMarginX;
-
-    coordinates = new int[] {x, y};
-
-    drawNumberInputCounter(value, height, coordinates);
-
-    x -= arrowSize + numberInputMarginX;
-
-    coordinates = new int[] {x, y};
-
-    drawNumberInputLeftArrow(coordinates, arrowSize);
+    return new int[] {width, height};
 }
 
 void drawInputLabel(String label, int height, int[] coordinates) {
@@ -73,147 +19,228 @@ void drawInputLabel(String label, int height, int[] coordinates) {
     text(label, x, y + height);
 }
 
-void drawNumberInputWithLabel(String label, int value, int height, int[] coordinates) {
-    fill(BLACK);
-    textSize(height);
-    drawInputLabel(label, height, coordinates);
-    drawNumberInput(value, height, coordinates);
+int[] getArrowCoordinates(int arrowSize, int marginRight, int[] coordinates) {
+    int x = coordinates[0];
+    int y = coordinates[1];
+
+    x -= arrowSize + marginRight;
+
+    return new int[] {x, y};
 }
 
-int[] drawNumberInputsWithLabel(String[] labels, int[] values, int height, int[] coordinates) {
+void drawNumberInputArrow(int[] coordinates, int size, boolean isLeftArrow) {
+    int x = coordinates[0];
+    int y = coordinates[1];
+
+    int baseX = x + int(isLeftArrow) * size;
+    int pointX = x + int(!isLeftArrow) * size;
+
+    int base1Y = y;
+    int base2Y = base1Y + size;
+
+    int pointY = base1Y + size / 2;
+
+    triangle(baseX, base1Y, baseX, base2Y, pointX, pointY);
+
+    coordinates = dualToQuadCoordinates(coordinates, size);
+
+    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
+}
+
+int[] getNumberInputCounterCoordinates(
+    int value,
+    int marginRight,
+    int[] coordinates
+) {
+    int x = coordinates[0];
+    int y = coordinates[1];
+
+    int valueTextWidth = round(textWidth(str(value)));
+    x -= valueTextWidth + marginRight;
+
+    return new int[] {x, y};
+}
+
+void drawNumberInputCounter(int value, int height, int[] coordinates) {
+    int x = coordinates[0];
+    int y = coordinates[1];
+
+    text(value, x, y + height);
+}
+
+void drawNumberInput(int value, int height, int[] coordinates) {
+    int arrowSize = height;
+    int marginRight = 0;
+
+    coordinates = getArrowCoordinates(arrowSize, marginRight, coordinates);
+    boolean isLeftArrow = false;
+    drawNumberInputArrow(coordinates, arrowSize, isLeftArrow);
+
+    marginRight = 6;
+    coordinates = getNumberInputCounterCoordinates(
+        value,
+        marginRight,
+        coordinates
+    );
+    drawNumberInputCounter(value, height, coordinates);
+
+    coordinates = getArrowCoordinates(arrowSize, marginRight, coordinates);
+    isLeftArrow = true;
+    drawNumberInputArrow(coordinates, arrowSize, isLeftArrow);
+}
+
+void drawNumberInputWithLabel(
+    String label,
+    int value,
+    int height,
+    int[] coordinates
+) {
+    fill(BLACK);
+    textSize(height);
+
+    int[] inputLabelCoordinates = alignTopLeft(coordinates);
+    drawInputLabel(label, height, inputLabelCoordinates);
+
+    int[] numberInputCoordinates = alignTopRight(coordinates);
+    drawNumberInput(value, height, numberInputCoordinates);
+}
+
+int[] addNumberInputHeightToCoordinates(
+    int inputHeight,
+    int inputMarginY,
+    boolean isLastInput,
+    int[] coordinates
+) {
+    int currentInputMarginY = !isLastInput ? inputMarginY : 0;
+
+    int x1 = coordinates[0];
+    int y1 = coordinates[1] + inputHeight + currentInputMarginY;
+
+    int x2 = coordinates[2];
+    int y2 = coordinates[3];
+
+    return new int[] {x1, y1, x2, y2};
+}
+
+int[] drawNumberInputsWithLabel(
+    String[] labels,
+    int[] values,
+    int inputHeight,
+    int[] coordinates
+) {
     if (labels.length != values.length) {
         return coordinates;
     }
 
-    int inputAmount = labels.length;
-
-    int x1 = coordinates[0];
-    int y1 = coordinates[1];
-    int x2 = coordinates[2];
-    int y2 = coordinates[3];
-
     int marginX = 16;
     int marginY = 16;
 
-    int availableWidth = x2 - x1 - marginX * 2;
-    int availableHeight = y2 - y1 - marginY * 2;
+    int[] margin = {marginX, marginY};
 
-    int[] availableSize = {availableWidth, availableHeight};
+    int availableWidth = getWidth(coordinates, margin);
 
+    int inputAmount = labels.length;
     int inputMarginY = 12;
 
-    int _width = availableWidth;
-    int _height = inputAmount * height + (inputAmount - 1) * inputMarginY;
+    int[] size = getNumberInputsSize(
+        availableWidth,
+        inputAmount,
+        inputHeight,
+        inputMarginY
+    );
 
-    int[] size = {
-        _width,
-        _height
-    };
+    coordinates = centerBoth(coordinates, size, margin);
 
-    int[] marginToCenter = getMarginToCenterBoth(size, availableSize);
-
-    int marginToCenterX = marginToCenter[0];
-    int marginToCenterY = marginToCenter[1];
-
-    marginX += marginToCenterX;
-    marginY += marginToCenterY;
-
-    x1 += marginX;
-    y1 += marginY;
-
-    x2 -= marginX;
-    y2 -= marginY;
-
-    coordinates = new int[] {x1, y1, x2, y2};
-
-    for (int inputIndex = 0; inputIndex < labels.length; inputIndex++) {
+    for (int inputIndex = 0; inputIndex < inputAmount; inputIndex++) {
         String label = labels[inputIndex];
         int value = values[inputIndex];
 
-        drawNumberInputWithLabel(label, value, height, coordinates);
+        drawNumberInputWithLabel(label, value, inputHeight, coordinates);
 
-        boolean isLastInput = inputIndex == labels.length - 1;
-        int currentInputMarginY = !isLastInput ? inputMarginY : 0;
-
-        x1 = coordinates[0];
-        y1 = coordinates[1] + height + currentInputMarginY;
-
-        x2 = coordinates[2];
-        y2 = coordinates[3];
-
-        coordinates = new int[] {x1, y1, x2, y2};
+        boolean isLastInput = inputIndex == inputAmount - 1;
+        coordinates = addNumberInputHeightToCoordinates(
+            inputHeight,
+            inputMarginY,
+            isLastInput,
+            coordinates
+        );
     }
 
     return coordinates;
 }
 
+int[] drawHomeScreenInputs(
+    int[] gridContentAmounts,
+    int inputHeight,
+    int[] coordinates
+) {
+    String[] inputLabels = {
+        "Aantal spelers",
+        "Aantal blokken per speler",
+        "Aantal obstakels"
+    };
+
+    int[] inputValues = {
+        gridContentAmounts[1],
+        gridContentAmounts[2],
+        gridContentAmounts[0]
+    };
+
+    return drawNumberInputsWithLabel(
+        inputLabels,
+        inputValues,
+        inputHeight,
+        coordinates
+    );
+}
+
+int[] getPlayButtonCoordinates(
+    int[] inputsCoordinates,
+    int[] homeScreenCoordinates
+) {
+    int x1 = inputsCoordinates[0];
+    int y1 = inputsCoordinates[1];
+
+    int x2 = homeScreenCoordinates[2];
+    int y2 = homeScreenCoordinates[3];
+
+    return new int[] {x1, y1, x2, y2};
+}
+
 int[] drawPlayButtonBackground(int[] coordinates) {
-    int x1 = coordinates[0];
-    int y1 = coordinates[1];
+    int width = 200;
+    int height = 24;
 
-    int x2 = coordinates[2];
-    int y2 = coordinates[3];
+    int[] size = {width, height};
 
-    int _width = 200;
-    int _height = 24;
+    coordinates = centerBoth(coordinates, size, getNoMargin());
 
-    int[] size = {_width, _height};
-
-    int availableWidth = x2 - x1;
-    int availableHeight = y2 - y1;
-
-    int[] availableSize = {availableWidth, availableHeight};
-
-    int[] marginToCenter = getMarginToCenterBoth(size, availableSize);
-
-    int marginToCenterX = marginToCenter[0];
-    int marginToCenterY = marginToCenter[1];
-
-    int x = x1 + marginToCenterX;
-    int y = y1 + marginToCenterY;
+    int x = coordinates[0];
+    int y = coordinates[1];
 
     fill(WHITE);
-    rect(x, y, _width, _height);
-
-    x2 = x + _width;
-    y2 = y + _height;
-
-    coordinates = new int[] {x, y, x2, y2};
+    rect(x, y, width, height);
 
     inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
 
     return coordinates;
 }
 
+int[] getPlayButtonTextCoordinates(String playButtonText, int _textSize) {
+    int width = round(textWidth(playButtonText));
+    int height = _textSize;
+
+    return new int[] {width, height};
+}
+
 void drawPlayButtonText(int _textSize, int[] coordinates) {
-    int x1 = coordinates[0];
-    int y1 = coordinates[1];
-
-    int x2 = coordinates[2];
-    int y2 = coordinates[3];
-
     String playButtonText = "Spelen!";
 
-    int _width = round(textWidth(playButtonText));
-    int _height = _textSize;
+    int[] size = getPlayButtonTextCoordinates(playButtonText, _textSize);
+    coordinates = centerBoth(coordinates, size, getNoMargin());
 
-    int[] size = {_width, _height};
-
-    int availableWidth = x2 - x1;
-    int availableHeight = y2 - y1;
-
-    int[] availableSize = {availableWidth, availableHeight};
-
-    int[] marginToCenter = getMarginToCenterBoth(size, availableSize);
-
-    int marginToCenterX = marginToCenter[0];
-    int marginToCenterY = marginToCenter[1];
-
-    x1 += marginToCenterX;
-    y1 += marginToCenterY;
-
-    x2 -= marginToCenterX;
-    y2 -= marginToCenterY;
+    int x1 = coordinates[0];
+    int y1 = coordinates[1];
 
     fill(BLACK);
     text(playButtonText, x1, y1 + _textSize);
@@ -245,28 +272,13 @@ void drawHomeScreen() {
 
     textSize(_textSize);
 
-    int[] newCoordinates = drawNumberInputsWithLabel(
-        new String[] {
-            "Aantal spelers",
-            "Aantal blokken per speler",
-            "Aantal obstakels"
-        },
-        new int[] {
-            gridContentAmounts[1],
-            gridContentAmounts[2],
-            gridContentAmounts[0]
-        },
+    int[] inputsCoordinates = drawHomeScreenInputs(
+        gridContentAmounts,
         inputHeight,
         coordinates
     );
 
-    int x1 = newCoordinates[0];
-    int y1 = newCoordinates[1];
-
-    int x2 = newCoordinates[2];
-    int y2 = coordinates[3];
-
-    coordinates = new int[] {x1, y1, x2, y2};
+    coordinates = getPlayButtonCoordinates(inputsCoordinates, coordinates);
 
     drawPlayButton(_textSize, coordinates);
 }
