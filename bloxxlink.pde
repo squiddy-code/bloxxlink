@@ -94,7 +94,7 @@ void keyPressed() {
 }
 
 void mouseClicked() {
-    if (screenIndex == 1) {
+    if (isOnMainGameScreen()) {
         return;
     }
 

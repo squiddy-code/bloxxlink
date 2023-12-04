@@ -1,3 +1,7 @@
+boolean isOnMainGameScreen() {
+    return screenIndex == 1;
+}
+
 void showMainGameScreen() {
     screenIndex = 1;
 }
