@@ -69,7 +69,7 @@ int[] addMarginToCenterBoth(int[] size, int[] availableSize, int[] margin) {
     return addMarginToMargin(margin, marginToCenterBoth);
 }
 
-int[] subtractMarginFromCoordinates(int[] coordinates, int[] margin) {
+int[] addMarginToCoordinates(int[] coordinates, int[] margin) {
     int x1 = coordinates[0];
     int y1 = coordinates[1];
 
@@ -79,13 +79,18 @@ int[] subtractMarginFromCoordinates(int[] coordinates, int[] margin) {
     int marginX = margin[0];
     int marginY = margin[1];
 
-    x1 += marginX;
-    y1 += marginY;
+    x1 -= marginX;
+    y1 -= marginY;
 
-    x2 -= marginX;
-    y2 -= marginY;
+    x2 += marginX;
+    y2 += marginY;
 
     return new int[] {x1, y1, x2, y2};
+}
+
+int[] subtractMarginFromCoordinates(int[] coordinates, int[] margin) {
+    margin = negateMargin(margin);
+    return addMarginToCoordinates(coordinates, margin);
 }
 
 int[] getNoMargin() {
@@ -93,4 +98,16 @@ int[] getNoMargin() {
     int marginY = 0;
 
     return new int[] {marginX, marginY};
+}
+
+int[] subtractMarginTop(int marginTop, int[] coordinates) {
+    int x1 = coordinates[0];
+    int y1 = coordinates[1];
+
+    int x2 = coordinates[2];
+    int y2 = coordinates[3];
+
+    y1 += marginTop;
+
+    return new int[] {x1, y1, x2, y2};
 }

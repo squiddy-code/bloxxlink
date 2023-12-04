@@ -1,5 +1,3 @@
-int[][] inputsCoordinates = {};
-
 int[] getNumberInputsSize(
     int availableWidth,
     int inputAmount,
@@ -207,50 +205,6 @@ int[] getPlayButtonCoordinates(
     return new int[] {x1, y1, x2, y2};
 }
 
-int[] drawPlayButtonBackground(int[] coordinates) {
-    int width = 200;
-    int height = 24;
-
-    int[] size = {width, height};
-
-    coordinates = centerBoth(coordinates, size, getNoMargin());
-
-    int x = coordinates[0];
-    int y = coordinates[1];
-
-    fill(WHITE);
-    rect(x, y, width, height);
-
-    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
-
-    return coordinates;
-}
-
-int[] getPlayButtonTextCoordinates(String playButtonText, int _textSize) {
-    int width = round(textWidth(playButtonText));
-    int height = _textSize;
-
-    return new int[] {width, height};
-}
-
-void drawPlayButtonText(int _textSize, int[] coordinates) {
-    String playButtonText = "Spelen!";
-
-    int[] size = getPlayButtonTextCoordinates(playButtonText, _textSize);
-    coordinates = centerBoth(coordinates, size, getNoMargin());
-
-    int x1 = coordinates[0];
-    int y1 = coordinates[1];
-
-    fill(BLACK);
-    text(playButtonText, x1, y1 + _textSize);
-}
-
-void drawPlayButton(int _textSize, int[] coordinates) {
-    coordinates = drawPlayButtonBackground(coordinates);
-    drawPlayButtonText(_textSize, coordinates);
-}
-
 void drawHomeScreen() {
     int width = 400;
     int height = 400;
@@ -263,9 +217,7 @@ void drawHomeScreen() {
     int[] margin = {marginX, marginY};
 
     int[] coordinates = centerInFullScreen(size, margin);
-
-    fill(WHITE);
-    drawRectangle(coordinates);
+    drawWhiteRectangle(coordinates);
 
     int inputHeight = 16;
     int _textSize = inputHeight;
@@ -280,5 +232,13 @@ void drawHomeScreen() {
 
     coordinates = getPlayButtonCoordinates(inputsCoordinates, coordinates);
 
-    drawPlayButton(_textSize, coordinates);
+    int playButtonTextMarginX = 24;
+    int playButtonTextMarginY = 8;
+
+    int[] playButtonTextMargin = {
+        playButtonTextMarginX,
+        playButtonTextMarginY
+    };
+
+    drawButton("Spelen!", _textSize, playButtonTextMargin, coordinates);
 }

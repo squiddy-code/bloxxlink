@@ -1,3 +1,13 @@
+int[] copyIntArray(int[] array) {
+    int[] arrayCopy = new int[array.length];
+
+    for (int index = 0; index < array.length; index++) {
+        arrayCopy[index] = array[index];
+    }
+
+    return arrayCopy;
+}
+
 int[][] appendTo2DArray(int[][] array, int[] item) {
     int[][] newArray = new int[array.length + 1][];
 
@@ -82,12 +92,12 @@ boolean intIsInArray(int _int, int[] array) {
     return false;
 }
 
-int[] copyIntArray(int[] array) {
-    int[] arrayCopy = new int[array.length];
+int sumArray(int[] array) {
+    int sum = 0;
 
     for (int index = 0; index < array.length; index++) {
-        arrayCopy[index] = array[index];
+        sum += array[index];
     }
 
-    return arrayCopy;
+    return sum;
 }

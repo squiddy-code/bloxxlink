@@ -15,6 +15,10 @@ void windowResized() {
     println("windowResized");
 }
 
+int screenIndex = 0;
+
+int[][] inputsCoordinates = {};
+
 int[] gridDimensions = {
     10, // # of columns
     10  // # of rows
@@ -28,20 +32,24 @@ int[] gridContentAmounts = {
 
 int[][][] gridContent;
 
-int[] scores = {
-    100, // player 1
-    100  // player 2
-};
-
-boolean playingGame = false;
+int winnerIndex;
 
 void draw() {
     clearScreen();
 
-    if (playingGame) {
-        drawMainGameScreen(gridDimensions, gridContent, scores);
-    } else {
-        drawHomeScreen();
+    switch (screenIndex) {
+        case 0:
+            resetScores();
+            drawHomeScreen();
+            break;
+        case 1:
+            drawMainGameScreen(gridDimensions, gridContent, scores);
+            break;
+        case 2:
+            drawEndScreen(winnerIndex, scores[winnerIndex]);
+            break;
+        default:
+            break;
     }
 }
 
@@ -68,13 +76,17 @@ void keyPressed() {
     scores[playerIndex] -= 1;
     gridContent = newGridContent;
 
-    Integer winnerIndex = getWinnerIndex(gridDimensions, gridContent);
+    Integer _winnerIndex = getWinnerIndex(gridDimensions, gridContent);
+    if (_winnerIndex != null) {
+        winnerIndex = _winnerIndex;
+        screenIndex = 2;
+    }
 
     redraw();
 }
 
 void mouseClicked() {
-    if (playingGame) {
+    if (screenIndex == 1) {
         return;
     }
 
@@ -90,6 +102,8 @@ void mouseClicked() {
 
         int inputX2 = inputCoordinates[2];
         int inputY2 = inputCoordinates[3];
+
+        // TODO refactor
 
         if (
             mouseX > inputX1 &&
@@ -122,7 +136,11 @@ void mouseClicked() {
                         gridContentAmounts
                     );
 
-                    playingGame = true;
+                    screenIndex = 1;
+                    break;
+                case 7:
+                    resetScores();
+                    screenIndex = 0;
                     break;
                 default:
                     break;
