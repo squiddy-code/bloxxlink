@@ -103,51 +103,52 @@ void mouseClicked() {
         int inputX2 = inputCoordinates[2];
         int inputY2 = inputCoordinates[3];
 
-        // TODO refactor
-
         if (
-            mouseX > inputX1 &&
-            mouseY > inputY1 &&
-            mouseX < inputX2 &&
-            mouseY < inputY2
+            mouseX < inputX1 ||
+            mouseY < inputY1 ||
+            mouseX > inputX2 ||
+            mouseY > inputY2
         ) {
-            switch (inputsCoordinatesIndex) {
-                case 0: // player
-                    gridContentAmounts[1]++;
-                    break;
-                case 1: // player
-                    gridContentAmounts[1]--;
-                    break;
-                case 2: // block
-                    gridContentAmounts[2]++;
-                    break;
-                case 3: // block
-                    gridContentAmounts[2]--;
-                    break;
-                case 4: // obstacle
-                    gridContentAmounts[0]++;
-                    break;
-                case 5: // obstacle
-                    gridContentAmounts[0]--;
-                    break;
-                case 6:
-                    gridContent = getRandomGridContent(
-                        gridDimensions,
-                        gridContentAmounts
-                    );
-
-                    screenIndex = 1;
-                    break;
-                case 7:
-                    resetScores();
-                    screenIndex = 0;
-                    break;
-                default:
-                    break;
-            }
-
-            redraw();
-            return;
+            continue;
         }
+
+        switch (inputsCoordinatesIndex) {
+            case 0: // increment player
+                gridContentAmounts[1]++;
+                break;
+            case 1: // decrement player
+                gridContentAmounts[1]--;
+                break;
+            case 2: // increment block
+                gridContentAmounts[2]++;
+                break;
+            case 3: // decrement block
+                gridContentAmounts[2]--;
+                break;
+            case 4: // increment obstacle
+                gridContentAmounts[0]++;
+                break;
+            case 5: // decrement obstacle
+                gridContentAmounts[0]--;
+                break;
+            case 6: // start game
+                gridContent = getRandomGridContent(
+                    gridDimensions,
+                    gridContentAmounts
+                );
+
+                screenIndex = 1;
+                break;
+            case 7: // play again
+                resetScores();
+
+                screenIndex = 0;
+                break;
+            default:
+                break;
+        }
+
+        redraw();
+        return;
     }
 }
