@@ -242,3 +242,7 @@ void drawHomeScreen() {
 
     drawButton("Spelen!", _textSize, playButtonTextMargin, coordinates);
 }
+
+void showHomeScreen() {
+    screenIndex = 0;
+}

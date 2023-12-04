@@ -1,3 +1,7 @@
+void showMainGameScreen() {
+    screenIndex = 1;
+}
+
 int[] getMainGameScreenSize(int[] gridSize, int scoreCounterHeight) {
     int gridWidth = gridSize[0];
     int gridHeight = gridSize[1];

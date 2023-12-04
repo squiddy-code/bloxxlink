@@ -1,3 +1,7 @@
+void showEndScreen() {
+    screenIndex = 2;
+}
+
 int[] getEndScreenContentSize(
     int availableWidth,
     int[] heights

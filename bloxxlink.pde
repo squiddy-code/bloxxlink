@@ -73,13 +73,21 @@ void keyPressed() {
         return;
     }
 
-    scores[playerIndex] -= 1;
+    int newScore = scores[playerIndex] - 1;
+    if (newScore <= 0) {
+        showHomeScreen();
+        redraw();
+
+        return;
+    }
+
+    scores[playerIndex] = newScore;
     gridContent = newGridContent;
 
     Integer _winnerIndex = getWinnerIndex(gridDimensions, gridContent);
     if (_winnerIndex != null) {
         winnerIndex = _winnerIndex;
-        screenIndex = 2;
+        showEndScreen();
     }
 
     redraw();
@@ -137,12 +145,12 @@ void mouseClicked() {
                     gridContentAmounts
                 );
 
-                screenIndex = 1;
+                showMainGameScreen();
                 break;
             case 7: // play again
                 resetScores();
+                showHomeScreen();
 
-                screenIndex = 0;
                 break;
             default:
                 break;
