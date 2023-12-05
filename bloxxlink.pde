@@ -41,7 +41,9 @@ void draw() {
 
 void keyPressed() {
     Integer playerIndex = getPlayerIndexByKeyCode(keyCode);
-    if (playerIndex == null) {
+    int playerAmount = gridContentAmounts[1];
+
+    if (playerIndex == null || playerIndex >= playerAmount) {
         return;
     }
 
