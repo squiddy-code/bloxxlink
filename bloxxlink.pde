@@ -112,12 +112,12 @@ void mouseClicked() {
             if (buttonsCoordinatesIndex < 6) { // grid content amount button
                 onGridContentAmountButtonPressed(buttonsCoordinatesIndex);
             } else if (buttonsCoordinatesIndex == 6) { // start game button
-                startGame();
+                gridContent = startGame();
             }
         }
 
         if (screenIndex == 2 && buttonsCoordinatesIndex == 7) {
-            endGame();
+            showHomeScreen();
         }
 
         redraw();

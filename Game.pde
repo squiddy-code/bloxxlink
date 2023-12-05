@@ -7,6 +7,7 @@ void drawCurrentScreen(
 ) {
     switch (screenIndex) {
         case 0:
+            resetScores();
             drawHomeScreen();
             break;
         case 1:
@@ -20,16 +21,12 @@ void drawCurrentScreen(
     }
 }
 
-void startGame() {
-    gridContent = getRandomGridContent(
+int[][][] startGame() {
+    int[][][] newGridContent = getRandomGridContent(
         gridDimensions,
         gridContentAmounts
     );
 
     showMainGameScreen();
-}
-
-void endGame() {
-    resetScores();
-    showHomeScreen();
+    return newGridContent;
 }
