@@ -17,17 +17,11 @@ void windowResized() {
 
 int screenIndex = 0;
 
-int[][] inputsCoordinates = {};
+int[][] buttonsCoordinates = {};
 
 int[] gridDimensions = {
     10, // # of columns
     10  // # of rows
-};
-
-int[] gridContentAmounts = {
-    4, // # of obstacles
-    2, // # of players
-    8  // # of blocks per player
 };
 
 int[][][] gridContent;
@@ -94,66 +88,44 @@ void keyPressed() {
 }
 
 void mouseClicked() {
+    // The main game screen doesn't have any buttons,
+    // so we can skip if it's on that screen.
     if (isOnMainGameScreen()) {
         return;
     }
 
     for (
-        int inputsCoordinatesIndex = 0;
-        inputsCoordinatesIndex < inputsCoordinates.length;
-        inputsCoordinatesIndex++
+        int buttonsCoordinatesIndex = 0;
+        buttonsCoordinatesIndex < buttonsCoordinates.length;
+        buttonsCoordinatesIndex++
     ) {
-        int[] inputCoordinates = inputsCoordinates[inputsCoordinatesIndex];
+        int[] buttonCoordinates = buttonsCoordinates[buttonsCoordinatesIndex];
 
-        int inputX1 = inputCoordinates[0];
-        int inputY1 = inputCoordinates[1];
+        int buttonX1 = buttonCoordinates[0];
+        int buttonY1 = buttonCoordinates[1];
 
-        int inputX2 = inputCoordinates[2];
-        int inputY2 = inputCoordinates[3];
+        int buttonX2 = buttonCoordinates[2];
+        int buttonY2 = buttonCoordinates[3];
 
         if (
-            mouseX < inputX1 ||
-            mouseY < inputY1 ||
-            mouseX > inputX2 ||
-            mouseY > inputY2
+            mouseX < buttonX1 ||
+            mouseY < buttonY1 ||
+            mouseX > buttonX2 ||
+            mouseY > buttonY2
         ) {
             continue;
         }
 
-        switch (inputsCoordinatesIndex) {
-            case 0: // increment player
-                gridContentAmounts[1]++;
-                break;
-            case 1: // decrement player
-                gridContentAmounts[1]--;
-                break;
-            case 2: // increment block
-                gridContentAmounts[2]++;
-                break;
-            case 3: // decrement block
-                gridContentAmounts[2]--;
-                break;
-            case 4: // increment obstacle
-                gridContentAmounts[0]++;
-                break;
-            case 5: // decrement obstacle
-                gridContentAmounts[0]--;
-                break;
-            case 6: // start game
-                gridContent = getRandomGridContent(
-                    gridDimensions,
-                    gridContentAmounts
-                );
+        if (screenIndex == 0) {
+            if (buttonsCoordinatesIndex < 6) { // grid content amount button
+                onGridContentAmountButtonPressed(buttonsCoordinatesIndex);
+            } else if (buttonsCoordinatesIndex == 6) { // start game button
+                startGame();
+            }
+        }
 
-                showMainGameScreen();
-                break;
-            case 7: // play again
-                resetScores();
-                showHomeScreen();
-
-                break;
-            default:
-                break;
+        if (screenIndex == 2 && buttonsCoordinatesIndex == 7) {
+            endGame();
         }
 
         redraw();

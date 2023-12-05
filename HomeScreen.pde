@@ -42,7 +42,7 @@ void drawNumberInputArrow(int[] coordinates, int size, boolean isLeftArrow) {
 
     coordinates = dualToQuadCoordinates(coordinates, size);
 
-    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
+    buttonsCoordinates = appendTo2DArray(buttonsCoordinates, coordinates);
 }
 
 int[] getNumberInputCounterCoordinates(

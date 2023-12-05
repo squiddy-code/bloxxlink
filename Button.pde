@@ -19,5 +19,5 @@ void drawButton(String _text, int _textSize, int[] textMargin, int[] coordinates
     fill(BLACK);
     text(_text, x, y + _textSize);
 
-    inputsCoordinates = appendTo2DArray(inputsCoordinates, coordinates);
+    buttonsCoordinates = appendTo2DArray(buttonsCoordinates, coordinates);
 }
