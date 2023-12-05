@@ -30,21 +30,13 @@ int winnerIndex;
 
 void draw() {
     clearScreen();
-
-    switch (screenIndex) {
-        case 0:
-            resetScores();
-            drawHomeScreen();
-            break;
-        case 1:
-            drawMainGameScreen(gridDimensions, gridContent, scores);
-            break;
-        case 2:
-            drawEndScreen(winnerIndex, scores[winnerIndex]);
-            break;
-        default:
-            break;
-    }
+    drawCurrentScreen(
+        screenIndex,
+        gridDimensions,
+        gridContent,
+        scores,
+        winnerIndex
+    );
 }
 
 void keyPressed() {
