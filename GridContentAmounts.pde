@@ -55,10 +55,6 @@ void addAmountToGridContentAmount(
     int amount = gridContentAmounts[gridContentAmountsIndex];
     int newAmount = amount + amountToAdd;
 
-    println(newAmount);
-    println(minAmount);
-    println(maxAmount);
-
     if (newAmount >= minAmount && newAmount <= maxAmount) {
         gridContentAmounts[gridContentAmountsIndex] = newAmount;
     }
