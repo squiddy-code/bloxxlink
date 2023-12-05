@@ -80,6 +80,16 @@ int[][] concat2DArray(
     return concatenatedArray;
 }
 
+int[][][] subset3DArray(int[][][] array, int startIndex) {
+    int[][][] newArray = new int[array.length - startIndex][][];
+
+    for (int index = startIndex; index < array.length; index++) {
+        newArray[index - startIndex] = array[index];
+    }
+
+    return newArray;
+}
+
 boolean intIsInArray(int _int, int[] array) {
     for (int index = 0; index < array.length; index++) {
         int currentInt = array[index];

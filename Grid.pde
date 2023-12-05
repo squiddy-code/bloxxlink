@@ -126,8 +126,7 @@ void drawGrid(
         cellSize
     );
 
-    // TODO create custom array method for this
-    int[][][] blocksPositions = (int[][][]) subset(gridContent, 3);
+    int[][][] blocksPositions = subset3DArray(gridContent, 3);
     int[] colors = {
         RED, // player 1 color
         BLUE // player 2 color
