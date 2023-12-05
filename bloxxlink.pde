@@ -26,7 +26,7 @@ int[] gridDimensions = {
 
 int[][][] gridContent;
 
-int winnerIndex;
+Integer winnerIndex;
 
 void draw() {
     clearScreen();
@@ -59,15 +59,6 @@ void keyPressed() {
         return;
     }
 
-    int newScore = scores[playerIndex] - 1;
-    if (newScore <= 0) {
-        showHomeScreen();
-        redraw();
-
-        return;
-    }
-
-    scores[playerIndex] = newScore;
     gridContent = newGridContent;
 
     Integer _winnerIndex = getWinnerIndex(gridDimensions, gridContent);
@@ -75,6 +66,13 @@ void keyPressed() {
         winnerIndex = _winnerIndex;
         showEndScreen();
     }
+
+    int newScore = scores[playerIndex] - 1;
+    if (newScore <= 0) {
+        showHomeScreen();
+    }
+
+    scores[playerIndex] = newScore;
 
     redraw();
 }
@@ -117,6 +115,7 @@ void mouseClicked() {
         }
 
         if (screenIndex == 2 && buttonsCoordinatesIndex == 7) {
+            winnerIndex = null;
             showHomeScreen();
         }
 

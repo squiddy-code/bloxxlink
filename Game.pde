@@ -3,7 +3,7 @@ void drawCurrentScreen(
     int[] gridDimensions,
     int[][][] gridContent,
     int[] scores,
-    int winnerIndex
+    Integer winnerIndex
 ) {
     switch (screenIndex) {
         case 0:
