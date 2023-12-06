@@ -193,11 +193,11 @@ int[] drawHomeScreenInputs(
 }
 
 int[] getPlayButtonCoordinates(
-    int[] inputsCoordinates,
+    int inputsCoordinatesY1,
     int[] homeScreenCoordinates
 ) {
-    int x1 = inputsCoordinates[0];
-    int y1 = inputsCoordinates[1];
+    int x1 = homeScreenCoordinates[0];
+    int y1 = inputsCoordinatesY1;
 
     int x2 = homeScreenCoordinates[2];
     int y2 = homeScreenCoordinates[3];
@@ -232,7 +232,8 @@ void drawHomeScreen() {
         coordinates
     );
 
-    coordinates = getPlayButtonCoordinates(inputsCoordinates, coordinates);
+    int inputsCoordinatesY1 = inputsCoordinates[1];
+    coordinates = getPlayButtonCoordinates(inputsCoordinatesY1, coordinates);
 
     int playButtonTextMarginX = 24;
     int playButtonTextMarginY = 8;
