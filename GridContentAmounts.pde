@@ -14,7 +14,7 @@ int[][] gridContentAmountsRanges = {
         2  // max
     },
     { // blocks per player
-        0, // min
+        1, // min
         10 // max
     }
 };
