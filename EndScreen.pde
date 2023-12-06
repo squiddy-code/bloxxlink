@@ -20,12 +20,12 @@ int[] drawEndScreenTitle(
     int wonPlayerNumber = wonPlayerIndex + 1;
     String title = "Van harte gefeliciteerd speler " + str(wonPlayerNumber) + "!";
 
-    return drawCenteredText(title, _textSize, coordinates);
+    return drawCenteredBlackText(title, _textSize, getNoMargin(), coordinates);
 }
 
 int[] drawEndScreenSubtitle(int score, int _textSize, int[] coordinates) {
     String subtitle = "Je hebt maarliefst " + str(score) + " punten behaald.";
-    return drawCenteredText(subtitle, _textSize, coordinates);
+    return drawCenteredBlackText(subtitle, _textSize, getNoMargin(), coordinates);
 }
 
 void drawEndScreen(int wonPlayerIndex, int score) {
@@ -72,6 +72,7 @@ void drawEndScreen(int wonPlayerIndex, int score) {
     size = getEndScreenContentSize(availableWidth, heights);
 
     coordinates = centerBoth(coordinates, size, getNoMargin());
+    coordinates = setY2(titleTextSize, coordinates);
     coordinates = drawEndScreenTitle(
         wonPlayerIndex,
         titleTextSize,
@@ -79,6 +80,7 @@ void drawEndScreen(int wonPlayerIndex, int score) {
     );
 
     coordinates = subtractMarginTop(subtitleMarginTop, coordinates);
+    coordinates = setY2(subtitleTextSize, coordinates);
     coordinates = drawEndScreenSubtitle(
         score,
         subtitleTextSize,
@@ -86,6 +88,7 @@ void drawEndScreen(int wonPlayerIndex, int score) {
     );
 
     coordinates = subtractMarginTop(endButtonMarginTop, coordinates);
+    coordinates = setY2(endButtonHeight, coordinates);
     drawButton(
         "Opnieuw spelen",
         endButtonTextSize,
