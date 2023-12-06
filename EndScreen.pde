@@ -18,14 +18,20 @@ int[] drawEndScreenTitle(
     int[] coordinates
 ) {
     int wonPlayerNumber = wonPlayerIndex + 1;
-    String title = "Van harte gefeliciteerd speler " + str(wonPlayerNumber) + "!";
+    String title =
+        "Van harte gefeliciteerd speler " + str(wonPlayerNumber) + "!";
 
     return drawCenteredBlackText(title, _textSize, getNoMargin(), coordinates);
 }
 
 int[] drawEndScreenSubtitle(int score, int _textSize, int[] coordinates) {
     String subtitle = "Je hebt maarliefst " + str(score) + " punten behaald.";
-    return drawCenteredBlackText(subtitle, _textSize, getNoMargin(), coordinates);
+    return drawCenteredBlackText(
+        subtitle,
+        _textSize,
+        getNoMargin(),
+        coordinates
+    );
 }
 
 void drawEndScreen(int wonPlayerIndex, int score) {

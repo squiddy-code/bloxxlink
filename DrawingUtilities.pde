@@ -2,7 +2,12 @@ void clearScreen() {
     background(WHITE);
 }
 
-void drawButton(String _text, int _textSize, int[] textMargin, int[] coordinates) {
+void drawButton(
+    String _text,
+    int _textSize,
+    int[] textMargin,
+    int[] coordinates
+) {
     int[] textBoxSize = getTextBoxSize(_text, _textSize);
     int[] size = addMarginToSize(textBoxSize, textMargin);
 

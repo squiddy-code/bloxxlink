@@ -61,11 +61,18 @@ void addAmountToGridContentAmount(
 }
 
 void onGridContentAmountButtonPressed(int buttonsCoordinatesIndex) {
-    Integer gridContentAmountsIndex = getGridContentAmountsIndex(buttonsCoordinatesIndex);
+    Integer gridContentAmountsIndex = getGridContentAmountsIndex(
+        buttonsCoordinatesIndex
+    );
     if (gridContentAmountsIndex == null) {
         return;
     }
 
-    int gridContentAmountToAdd = getGridContentAmountToAdd(buttonsCoordinatesIndex);
-    addAmountToGridContentAmount(gridContentAmountToAdd, gridContentAmountsIndex);
+    int gridContentAmountToAdd = getGridContentAmountToAdd(
+        buttonsCoordinatesIndex
+    );
+    addAmountToGridContentAmount(
+        gridContentAmountToAdd,
+        gridContentAmountsIndex
+    );
 }

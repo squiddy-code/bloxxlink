@@ -253,7 +253,8 @@ int[][][] tryToMovePlayer(
                 return gridContent;
             }
 
-            newGridContent[gridContentIndex][positionIndex] = newCurrentPosition;
+            newGridContent[gridContentIndex][positionIndex] =
+                newCurrentPosition;
         }
     }
 
