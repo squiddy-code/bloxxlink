@@ -5,12 +5,14 @@ void settings() {
 }
 
 void setup() {
+    // TODO remove this
     windowResizable(true);
 
     // noLoop() must be the last line of setup()
     noLoop();
 }
 
+// TODO remove this
 void windowResized() {
     println("windowResized");
 }
