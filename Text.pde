@@ -1,7 +1,7 @@
 int[] getTextBoxSize(String _text, int _textSize) {
     textSize(_textSize);
 
-    int width = round(textWidth(_text));
+    int width = ceil(textWidth(_text));
     int height = _textSize;
 
     return new int[] {width, height};

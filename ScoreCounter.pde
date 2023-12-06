@@ -16,8 +16,8 @@ void drawPlayer2ScoreText(int score, int x2, int y) {
     int playerNumber = 2;
 
     String scoreText = getPlayerScoreText(playerNumber, score);
-    float scoreTextWidth = textWidth(scoreText);
-    int x = x2 - ceil(scoreTextWidth);
+    int scoreTextWidth = ceil(textWidth(scoreText));
+    int x = x2 - scoreTextWidth;
 
     text(scoreText, x, y);
 }

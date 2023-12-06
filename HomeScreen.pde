@@ -53,7 +53,7 @@ int[] getNumberInputCounterCoordinates(
     int x = coordinates[0];
     int y = coordinates[1];
 
-    int valueTextWidth = round(textWidth(str(value)));
+    int valueTextWidth = ceil(textWidth(str(value)));
     x -= valueTextWidth + marginRight;
 
     return new int[] {x, y};
