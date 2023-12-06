@@ -19,8 +19,6 @@ void windowResized() {
 
 int screenIndex = 0;
 
-int[][] buttonsCoordinates = {};
-
 int[] gridDimensions = {
     10, // # of columns
     10  // # of rows

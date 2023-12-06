@@ -206,6 +206,8 @@ int[] getPlayButtonCoordinates(
 }
 
 void drawHomeScreen() {
+    resetButtonsCoordinates();
+
     int width = 400;
     int height = 400;
 
