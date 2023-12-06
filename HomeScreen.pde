@@ -179,9 +179,9 @@ int[] drawHomeScreenInputs(
     };
 
     int[] inputValues = {
-        gridContentAmounts[1],
-        gridContentAmounts[2],
-        gridContentAmounts[0]
+        gridContentAmounts[1], // # of players
+        gridContentAmounts[2], // # of blocks per player
+        gridContentAmounts[0]  // # of obstacles
     };
 
     return drawNumberInputsWithLabel(
