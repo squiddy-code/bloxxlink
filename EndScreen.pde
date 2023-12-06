@@ -67,7 +67,7 @@ void drawEndScreen(int wonPlayerIndex, int score) {
         subtitleMarginTop,
         subtitleTextSize,
         endButtonMarginTop,
-        endButtonTextSize
+        endButtonHeight
     };
     size = getEndScreenContentSize(availableWidth, heights);
 
