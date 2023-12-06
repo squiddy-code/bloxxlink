@@ -113,7 +113,6 @@ int[] copyPositionWithDimension(
     return newPosition;
 }
 
-// TODO remove dimension parameter since the dimension can be obtained with position[dimensionIndex]
 int[] getPositionPushedBy(
     int[] position,
     int dimension,
@@ -193,7 +192,6 @@ int[][][] tryToMovePlayer(
         ) {
             int[] currentPosition = positions[positionIndex];
 
-            // TODO clean this up
             if (
                 !positionsAreInSameRow(
                     currentPosition,
