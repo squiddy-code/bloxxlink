@@ -61,6 +61,7 @@ int[][][] addRandomPositionsToGridContent(
 int[][] getAdjacentPositions(
     int[] position,
     int[] gridDimensions,
+    int[][][] gridContent,
     Integer gridContentIndex,
     boolean includeCorners
 ) {
@@ -137,6 +138,7 @@ int[][][] addAdjacentPositionsToGridContent(
         int[][] adjacentPositions = getAdjacentPositions(
             position,
             gridDimensions,
+            gridContent,
             null,
             true
         );

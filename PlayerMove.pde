@@ -282,6 +282,7 @@ boolean playerHasWon(
         int[][] adjacentPositions = getAdjacentPositions(
             currentPosition,
             gridDimensions,
+            gridContent,
             playerBlocksIndex,
             false
         );
